@@ -1,0 +1,80 @@
+> witness<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/witness.csv")
+> colnames(witness)
+ [1] "ID"       "SEX_WITN" "AGE_WITN" "SEX_PART" "ACCURATE" "HONEST"   "MEMORY"   "COGNITIV" "SENIOR_S" "SENIOR_H" "ACC_Cen"  "AGEW_Cen" "COG_Cen"  "HON_Cen"  "MEM_Cen"  "SENH_Cen" "SENS_Cen"
+> sapply(witness,class)
+       ID  SEX_WITN  AGE_WITN  SEX_PART  ACCURATE    HONEST    MEMORY  COGNITIV  SENIOR_S  SENIOR_H   ACC_Cen  AGEW_Cen   COG_Cen   HON_Cen   MEM_Cen  SENH_Cen  SENS_Cen 
+"integer" "integer" "integer" "integer" "integer" "integer" "integer" "integer" "integer" "integer" "numeric" "integer" "numeric" "numeric" "numeric" "numeric" "numeric" 
+> data<-witness(, c(5,3,8,6,7,10,9))
+Error in witness(, c(5, 3, 8, 6, 7, 10, 9)) : 
+  could not find function "witness"
+> data<-witness[, c(5,3,8,6,7,10,9)]
+> cor(data,use="complete.obs")
+            ACCURATE     AGE_WITN    COGNITIV      HONEST       MEMORY     SENIOR_H    SENIOR_S
+ACCURATE  1.00000000  0.120769571  0.47600533  0.38962123  0.598772609 -0.070736556  0.04781964
+AGE_WITN  0.12076957  1.000000000  0.04014397  0.15753348  0.003626903 -0.061679174  0.01600472
+COGNITIV  0.47600533  0.040143967  1.00000000  0.36821091  0.555277286  0.001492170 -0.01978309
+HONEST    0.38962123  0.157533483  0.36821091  1.00000000  0.385802722 -0.139249058 -0.07529522
+MEMORY    0.59877261  0.003626903  0.55527729  0.38580272  1.000000000  0.008784244 -0.01873555
+SENIOR_H -0.07073656 -0.061679174  0.00149217 -0.13924906  0.008784244  1.000000000  0.49955121
+SENIOR_S  0.04781964  0.016004722 -0.01978309 -0.07529522 -0.018735549  0.499551211  1.00000000
+> lm(witness$ACCURATE~witness$AGE_WITN, data=witness)
+
+Call:
+lm(formula = witness$ACCURATE ~ witness$AGE_WITN, data = witness)
+
+Coefficients:
+     (Intercept)  witness$AGE_WITN  
+         3.45100           0.01058  
+
+> lm(witness$ACCURATE~witness$AGE_WITN+witness$COGNITIV+witness$HONEST+witness$MEMORY+witness$SENIOR_H+witness$SENIOR_S, data=witness)
+
+Call:
+lm(formula = witness$ACCURATE ~ witness$AGE_WITN + witness$COGNITIV + 
+    witness$HONEST + witness$MEMORY + witness$SENIOR_H + witness$SENIOR_S, 
+    data = witness)
+
+Coefficients:
+     (Intercept)  witness$AGE_WITN  witness$COGNITIV    witness$HONEST    witness$MEMORY  witness$SENIOR_H  witness$SENIOR_S  
+       -0.064697          0.006461          0.173565          0.155676          0.480034         -0.045838          0.052646  
+
+> model<-lm(witness$ACCURATE~witness$AGE_WITN+witness$COGNITIV+witness$HONEST+witness$MEMORY+witness$SENIOR_H+witness$SENIOR_S, data=witness)
+> summary(model)
+
+Call:
+lm(formula = witness$ACCURATE ~ witness$AGE_WITN + witness$COGNITIV + 
+    witness$HONEST + witness$MEMORY + witness$SENIOR_H + witness$SENIOR_S, 
+    data = witness)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.79125 -0.53540  0.00283  0.56504  2.32801 
+
+Coefficients:
+                  Estimate Std. Error t value Pr(>|t|)    
+(Intercept)      -0.064697   0.500390  -0.129  0.89725    
+witness$AGE_WITN  0.006461   0.004179   1.546  0.12362    
+witness$COGNITIV  0.173565   0.063879   2.717  0.00714 ** 
+witness$HONEST    0.155676   0.071037   2.191  0.02953 *  
+witness$MEMORY    0.480034   0.068770   6.980 3.92e-11 ***
+witness$SENIOR_H -0.045838   0.024553  -1.867  0.06332 .  
+witness$SENIOR_S  0.052646   0.025465   2.067  0.03994 *  
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.848 on 207 degrees of freedom
+  (6 observations deleted due to missingness)
+Multiple R-squared:  0.4302,	Adjusted R-squared:  0.4137 
+F-statistic: 26.05 on 6 and 207 DF,  p-value: < 2.2e-16
+
+> install.packages("car")
+> library(car)
+Loading required package: carData
+> vif(model)
+witness$AGE_WITN witness$COGNITIV   witness$HONEST   witness$MEMORY witness$SENIOR_H witness$SENIOR_S 
+        1.034128         1.508129         1.286461         1.538960         1.364337         1.337666 
+
+
+
+
+
+

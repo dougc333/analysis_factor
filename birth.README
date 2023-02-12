@@ -1,0 +1,25 @@
+Description
+Data were collected on 1200 infants born in the United States in 2014.
+
+Source
+Centers for Disease Control and Prevention.
+
+The full description of the data set is available at: ftp://ftp.cdc.gov/pub/Health_Statistics/NCHS/Dataset_Documentation/DVS/natality/UserGuide2014.pdf
+
+Research Questions
+Understand predictors of birth weight. Infant mortality and birth defect rates are very high for infants of low birth weight.
+Understand predictors of maternal weight gain during pregnancy.
+Variables
+The data set contains just under 50 variables, including:
+
+Characteristics of the mother and father
+Characteristics of the birth
+Characteristics of the infant
+Characteristics of the pregnancy
+Key outcome variables include:
+
+Variable	Label
+bwt_pnds	Birth weight in pounds
+wtgain	Maternal Weight Gain in pounds
+
+

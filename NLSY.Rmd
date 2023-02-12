@@ -1,0 +1,169 @@
+---
+title: "NLSY"
+output: html_document
+date: "2023-02-12"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+## Including Plots
+
+You can also embed plots, for example:
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r}
+nlsy<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/NLSY.csv")
+```
+
+
+```{r}
+sapply(nlsy,class)
+```
+
+colnames seems redundant with the output above? 
+```{r}
+colnames(nlsy)
+```
+Physical Health Composite Score  is PCS2000
+plot y vs Xn. What was in the notes. 
+```{r}
+plot(nlsy$R0000100, nlsy$PCS2000)
+plot(nlsy$CESD2000Total, nlsy$PCS2000)
+plot(nlsy$CESDTotal2000cutpt, nlsy$PCS2000)
+plot(nlsy$MCS2000, nlsy$PCS2000)
+
+plot(nlsy$RelAt2000cat6, nlsy$PCS2000)
+plot(nlsy$RelAt2000cat2, nlsy$PCS2000)
+plot(nlsy$NumberBioStepAdoptChildHH2000, nlsy$PCS2000)
+plot(nlsy$BioChildHH2000c2, nlsy$PCS2000)
+plot(nlsy$WorkTimeHrsperWkPastCalYr2000cat4, nlsy$PCS2000)
+plot(nlsy$UnemplyWksPastCal2000c, nlsy$PCS2000)
+plot(nlsy$UnemployedWksPastCal2000cont, nlsy$PCS2000)
+plot(nlsy$IncomePercNetFam2000c, nlsy$PCS2000)
+plot(nlsy$PovertyStatus2000c2, nlsy$PCS2000)
+```
+```{r}
+sapply(nlsy$MCS2000,is.numeric)
+```
+```{r}
+print(dim(nlsy$MCS2000))
+print(dim(nlsy))
+
+print(length(nlsy$MCS2000))
+print(ncol(nlsy$MCS2000))
+print(nrow(nlsy$MCS2000))
+print(typeof(nlsy$MCS2000))
+print(class(nlsy$MCS2000))
+print("333333334")
+print(nlsy$MCS2000[1])
+print("########")
+print(sapply(nlsy$MCS2000, class))
+
+print("-------")
+sapply(nlsy$MCS2000,is.na)
+```
+
+
+
+```{r}
+nlsy$MCS2000
+
+```
+
+```{r}
+library(psych)
+nlsy$MCSCen<-nlsy$MCS2000-mean(nlsy$MCS2000,na.rm=TRUE)
+describe(nlsy$MCS2000,na.rm=TRUE)
+
+```
+```{r}
+describe(nlsy$MCSCen,na.rm=TRUE)
+```
+
+
+```{r}
+plot(nlsy$MCS2000,nlsy$PCS2000,type="p",xlim=c(0,7000),ylab="Physical Health Composite Score",xlab="Mental Health Composite Score NonCentered)") 
+abline(lm(nlsy$PCS2000 ~ nlsy$MCS2000))
+abline(v=0) #add vertical line at 0
+```
+```{r}
+model1<-lm(PCS2000~MCS2000,data=nlsy)
+summary(model1)
+```
+
+```{r}
+model2<-lm(PCS2000~MCSCen,data=nlsy)
+summary(model2)
+```
+
+```{r}
+plot(nlsy$MCSCen,nlsy$PCS2000,type="p",ylab="Physical Health Composite Score",xlab="Mental Health Composite Score Centered") 
+abline(lm(nlsy$PCS2000 ~ nlsy$MCSCen))
+abline(v=0) #add vertical line at 0
+```
+```{r}
+##years of education 
+mean(nlsy$Education2000) 
+summary(lm(nlsy$PCS2000 ~ nlsy$Education2000))
+```
+```{r}
+plot(nlsy$Education2000,nlsy$PCS2000,type="p",ylab="Physical Health Composite Score",xlab="Years of Education")
+abline(lm(nlsy$PCS2000 ~ nlsy$Education2000)) #add regression line
+abline(v=0) #add vertical line at 0
+abline(v=12) #add vertical line at 12
+abline(v=13.05) #add vertical line at the mean
+
+```
+
+
+```{r}
+nlsy$EducCen<-nlsy$Education2000-12  #Center at 12
+plot(nlsy$EducCen,nlsy$PCS2000,type="p",ylab="Physical Health Composite Score",xlab="Years of Education")
+abline(lm(nlsy$PCS2000 ~ nlsy$EducCen)) #add regression line
+```
+
+```{r}
+summary(lm(nlsy$PCS2000 ~ nlsy$EducCen))
+```
+
+
+
+
+```{r}
+#Depression Score
+hist(nlsy$CESD2000Total, nclass=21)
+```
+
+
+```{r}
+mean(nlsy$CESD2000Total,na.rm = TRUE)
+```
+
+```{r}
+#centered at 12 not actual mean
+plot(nlsy$CESD2000Total,nlsy$PCS2000,type="p",ylab="Physical Health Composite Score",xlab="Depression Score 0-21 Center for Epi Study") 
+abline(lm(nlsy$PCS2000 ~ nlsy$CESD2000Total)) #add regression line
+abline(v=0) #add vertical line at 0
+abline(v=3.5) #add vertical line at the mean 3.5
+abline(v=16) #add vertical line at the clinical cutoff 16
+nlsy$CESDCen<-nlsy$CESD2000Total-3.5 
+```
+```{r}
+model3<-lm(PCS2000~Education2000+NumberBioStepAdoptChildHH2000+CESD2000Total+MCS2000,data=nlsy)
+summary(model3)
+```
+
+```{r}
+model4<-lm(PCS2000~EducCen+NumberBioStepAdoptChildHH2000+CESDCen+MCSCen,data=nlsy)
+summary(model4)
+```
+

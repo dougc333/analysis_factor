@@ -1,0 +1,39 @@
+---
+title: "Birth Notebook"
+output: html_notebook
+---
+
+
+```{r}
+birth<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/BIRTH.csv")
+colnames(birth)
+```
+APGAR10 colunn is not an integer
+```{r}
+sapply(birth,class)
+```
+
+
+```{r}
+num=0
+get_integer_cols<-function(df){
+  for(i in 1:ncol(df)) {
+    #print(colnames(df[i]))
+    if(sapply(df[i],class)=="integer" || sapply(df[i],class)=="numeric"){
+      num=num+1
+      print(paste("col",i,":",colnames(df[i])))
+    }
+  }
+  print(paste("num:",num))
+  print(paste("num cols not integer or numeric:",ncol(birth)-num))
+}
+get_integer_cols(birth)
+```
+```{r}
+#birth dataset mdule 2 data predictors in ounces and pounds. Gestataion in weeks, change to days. WHy? 
+BIRTH<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/BIRTH.csv",header=T)
+```
+
+
+
+
