@@ -1,0 +1,3 @@
+https://bookdown.org/ripberjt/qrmbook/ols-assumptions-and-simple-regression-diagnostics.html
+
+
