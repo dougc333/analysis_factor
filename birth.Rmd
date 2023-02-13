@@ -2,15 +2,21 @@
 title: "Birth Notebook"
 output: html_notebook
 ---
+```{r}
+install.packages("car")
+install.packages("lm.beta")
+library(car)
+library("lm.beta")
+```
 
 
 ```{r}
-birth<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/BIRTH.csv")
-colnames(birth)
+BIRTH<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/BIRTH.csv")
+colnames(BIRTH)
 ```
 APGAR10 colunn is not an integer
 ```{r}
-sapply(birth,class)
+sapply(BIRTH,class)
 ```
 
 
@@ -27,13 +33,8 @@ get_integer_cols<-function(df){
   print(paste("num:",num))
   print(paste("num cols not integer or numeric:",ncol(birth)-num))
 }
-get_integer_cols(birth)
+get_integer_cols(BIRTH)
 ```
-```{r}
-#birth dataset mdule 2 data predictors in ounces and pounds. Gestataion in weeks, change to days. WHy? 
-BIRTH<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/BIRTH.csv",header=T)
-```
-
 
 ```{r}
 #rescaling births
@@ -46,22 +47,52 @@ head(BIRTH$gestation_days,n=10)
 
 ```{r}
 plot(BIRTH$gestation,BIRTH$bwt_pnds,type="p",ylab="Birth Weight in Pounds",xlab="Gestation in Weeks")
-abline(lm(BIRTH$bwt_pnds ~ BIRTH$gestation))
-
-plot(BIRTH$gestation_days,BIRTH$bwt,type="p",ylab="Birth Weight in Ounces",xlab="Gestation in Days")
-abline(lm(BIRTH$bwt ~ BIRTH$gestation_days))
+m_bwt_pnds_ges <-lm(BIRTH$bwt_pnds ~ BIRTH$gestation)
+abline(m_bwt_pnds_ges)
+```
+```{r}
+res_m_bwt_pnds_ges<-resid(m_bwt_pnds_ges)
+qqnorm(res_m_bwt_pnds_ges)
+qqline(res_m_bwt_pnds_ges)
+skewness(res_m_bwt_pnds_ges)
+kurtosis(res_m_bwt_pnds_ges)
+jarque.test(res_m_bwt_pnds_ges)
+shapiro.test(res_m_bwt_pnds_ges)
 
 ```
 ```{r}
+spreadLevelPlot(m_bwt_pnds_ges)
+
+```
+
+```{r}
+ncvTest(m_bwt_pnds_ges)
+```
+
+
+```{r}
+outlierTest(m_bwt_pnds_ges)
+```
+
+
+
+```{r}
+plot(BIRTH$gestation_days,BIRTH$bwt,type="p",ylab="Birth Weight in Ounces",xlab="Gestation in Days")
+abline(lm(BIRTH$bwt ~ BIRTH$gestation_days))
+```
+
+```{r}
 model5<-lm(bwt_pnds~gestation,data=BIRTH)
 summary(model5)
+```
 
+
+
+```{r}
 model6<-lm(bwt~gestation_days,data=BIRTH)
 summary(model6)
 ```
 ```{r}
-install.packages("lm.beta")
-library(lm.beta)
 NLSY<-nlsy
 model7<-lm(PCS2000~CESD2000Total+Education2000+NumberBioStepAdoptChildHH2000+MCS2000,data=NLSY)
 model7.1<-lm.beta(model7)
