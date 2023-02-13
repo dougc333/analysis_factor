@@ -44,13 +44,26 @@ head(BIRTH$bwt_pnds,n=10)
 head(BIRTH$gestation,n=10)
 head(BIRTH$gestation_days,n=10)
 ```
+Run a regression with 1 predictor. Correlation and cov test
+
+```{r}
+cor(BIRTH$bwt_pnds, BIRTH$gestation)
+cov(BIRTH$bwt_pnds, BIRTH$gestation)
+```
+The correlation doesnt really tell you anything. Not a 1 strongly correlated and not a 0 not corrrelated. 
+Same with covariance, will be smaller or bigger if we change the units. cov dependent on magnitude of units
 
 ```{r}
 plot(BIRTH$gestation,BIRTH$bwt_pnds,type="p",ylab="Birth Weight in Pounds",xlab="Gestation in Weeks")
 m_bwt_pnds_ges <-lm(BIRTH$bwt_pnds ~ BIRTH$gestation)
 abline(m_bwt_pnds_ges)
 ```
+We have some outliers which look funny. We have a workflow to identify these.
+IS corr independent of units? We can verify after scaling and centering!
+
 ```{r}
+#regression diagnostics
+#VIF for multicollineary only makes sense with multiple predictors
 res_m_bwt_pnds_ges<-resid(m_bwt_pnds_ges)
 qqnorm(res_m_bwt_pnds_ges)
 qqline(res_m_bwt_pnds_ges)
@@ -58,8 +71,11 @@ skewness(res_m_bwt_pnds_ges)
 kurtosis(res_m_bwt_pnds_ges)
 jarque.test(res_m_bwt_pnds_ges)
 shapiro.test(res_m_bwt_pnds_ges)
-
 ```
+
+
+
+
 ```{r}
 spreadLevelPlot(m_bwt_pnds_ges)
 
@@ -74,9 +90,17 @@ ncvTest(m_bwt_pnds_ges)
 outlierTest(m_bwt_pnds_ges)
 ```
 
-
+```{r}
+plotdb<-dfbetaPlots(m_bwt_pnds_ges, id.n=6)
+```
+We see 4,45, 1195 returned as top 3 or topN as top outliers 
 
 ```{r}
+influencePlot(m_bwt_pnds_ges)
+```
+
+```{r}
+#this shouldnt be different from above! 
 plot(BIRTH$gestation_days,BIRTH$bwt,type="p",ylab="Birth Weight in Ounces",xlab="Gestation in Days")
 abline(lm(BIRTH$bwt ~ BIRTH$gestation_days))
 ```
@@ -100,11 +124,16 @@ summary(model7.1)
 
 ```
 ```{r}
-BIRTH<-birth
+#missing sqrt term had to fix
 BIRTH$ln_last_preg<-log(BIRTH$last_preg)
 BIRTH$inv_last_preg<-1/(BIRTH$last_preg)
-BIRTH$sqrt_last_preg<-  (BIRTH$last_preg)
+BIRTH$sqrt_last_preg<-sqrt(BIRTH$last_preg)
 BIRTH$ln_pre_wgt<-log(BIRTH$pre_wgt)
+head(BIRTH$last_preg,n=10)
+head(BIRTH$ln_last_pre,n=10)
+head(BIRTH$inv_last_preg,n=10)
+head(BIRTH$sqrt_last_preg,n=10)
+head(BIRTH$ln_pre_wgt,n=10)
 
 ```
 
