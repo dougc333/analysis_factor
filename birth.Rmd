@@ -35,5 +35,88 @@ BIRTH<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/BIRT
 ```
 
 
+```{r}
+#rescaling births
+BIRTH$gestation_days<-BIRTH$gestation*7
+head(BIRTH$bwt,n=10)
+head(BIRTH$bwt_pnds,n=10)
+head(BIRTH$gestation,n=10)
+head(BIRTH$gestation_days,n=10)
+```
 
+```{r}
+plot(BIRTH$gestation,BIRTH$bwt_pnds,type="p",ylab="Birth Weight in Pounds",xlab="Gestation in Weeks")
+abline(lm(BIRTH$bwt_pnds ~ BIRTH$gestation))
+
+plot(BIRTH$gestation_days,BIRTH$bwt,type="p",ylab="Birth Weight in Ounces",xlab="Gestation in Days")
+abline(lm(BIRTH$bwt ~ BIRTH$gestation_days))
+
+```
+```{r}
+model5<-lm(bwt_pnds~gestation,data=BIRTH)
+summary(model5)
+
+model6<-lm(bwt~gestation_days,data=BIRTH)
+summary(model6)
+```
+```{r}
+install.packages("lm.beta")
+library(lm.beta)
+NLSY<-nlsy
+model7<-lm(PCS2000~CESD2000Total+Education2000+NumberBioStepAdoptChildHH2000+MCS2000,data=NLSY)
+model7.1<-lm.beta(model7)
+summary(model7.1)
+
+```
+```{r}
+BIRTH<-birth
+BIRTH$ln_last_preg<-log(BIRTH$last_preg)
+BIRTH$inv_last_preg<-1/(BIRTH$last_preg)
+BIRTH$sqrt_last_preg<-  (BIRTH$last_preg)
+BIRTH$ln_pre_wgt<-log(BIRTH$pre_wgt)
+
+```
+
+```{r}
+plot(BIRTH$mage,BIRTH$last_preg,type="p",ylab="last_preg",xlab="Mother's Age")
+abline(lm(BIRTH$last_preg ~ BIRTH$mage))
+
+plot(BIRTH$mage,BIRTH$sqrt_last_preg,type="p",ylab="sqrt_last_preg",xlab="Mother's Age")
+abline(lm(BIRTH$sqrt_last_preg ~ BIRTH$mage))
+
+plot(BIRTH$mage,BIRTH$ln_last_preg,type="p",ylab="ln_last_preg",xlab="Mother's Age")
+abline(lm(BIRTH$ln_last_preg ~ BIRTH$mage))
+
+##histograms of untransformed, square root, and natural log of months since last pregnancy
+hist(BIRTH$last_preg)
+hist(BIRTH$sqrt_last_preg)
+hist(BIRTH$ln_last_preg)
+
+```
+
+```{r}
+##Square Root transformation on Y
+model8<-lm(sqrt_last_preg~mage+pre_wgt,data=BIRTH)
+summary(model8)
+
+##Natural log transformation on Y
+model9<-lm(ln_last_preg~mage+pre_wgt,data=BIRTH)
+summary(model9)
+
+##Natural log transformation on X
+model10<-lm(last_preg~mage+ln_pre_wgt,data=BIRTH)
+summary(model10)
+
+plot(BIRTH$ln_pre_wgt,BIRTH$last_preg,type="p",ylab="Months Since Last Pregnancy",xlab="ln_pre_wgt")
+abline(lm(BIRTH$last_preg ~ BIRTH$ln_pre_wgt))
+
+##Natural log transformation on both Y and X
+model11<-lm(ln_last_preg~mage+ln_pre_wgt,data=BIRTH)
+summary(model11)
+
+plot(BIRTH$ln_pre_wgt,BIRTH$ln_last_preg,type="p",ylab="ln_last_preg",xlab="ln_pre_wgt")
+abline(lm(BIRTH$ln_last_preg ~ BIRTH$ln_pre_wgt))
+
+
+```
 

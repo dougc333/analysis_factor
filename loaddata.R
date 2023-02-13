@@ -626,4 +626,5 @@ del_wgt  0.13428386  0.92778064  0.1556489 1.0000000
 > res_model_birth<-resid(model_birth)
 > qqnorm(res_model_birth)
 > qqline(res_model_birth)
-> 
+> library(moments)
+

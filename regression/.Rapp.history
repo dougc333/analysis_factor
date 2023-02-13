@@ -1,0 +1,250 @@
+read.csv("/Users/dc/Downloads/datasets_irc_workshop/BIRTH.csv")
+data<-read.csv("/Users/dc/Downloads/datasets_irc_workshop/BIRTH.csv")
+colnames(data)
+model<-lm(data.bwt_pnds~data.bwt+data.gestation+data.wt_gain+data.del_wgt+data.pre_wgt)
+data
+type(data)
+class(data)
+data$bwt_pnds
+model<-lm(data$bwt_pnds~data$bwt+data$gestation+data$wt_gain+data$del_wgt+data$pre_wgt)
+len(data$bwt_pnds)
+max(data$bwt_pnds)
+size(data$bwt_pnds)
+nrow(data$bwt_pnds)
+colnames(data)
+nrow(data$bwt_pnds)
+data$bwt_pnds
+nrows(data$bwt_pnds)
+nrow(data$bwt_pnds)
+nrow(data)
+ncol(data)
+select(data,c("bwt_pnds"))
+data(,c("bwt_pnds"))
+data[],c("bwt_pnds")]
+data[,c("bwt_pnds")]
+nrows(data[,c("bwt_pnds")])
+nrow(data[,c("bwt_pnds")])
+data[,c("bwt_pnds")]
+class(data[,c("bwt_pnds")])
+class(data[]"bwt_pnds"])
+data["bwt_pnds"]
+nrows(data["bwt_pnds"])
+nrow(data["bwt_pnds"])
+model<-lm(data["bwt_pnds"]~data["bwt"]+data["gestation"]+data["wt_gain"]+data["del_wgt"]+data["pre_wgt"])
+model<-lm(data["bwt_pnds"]~data["bwt"]+data["gestation"]+data["del_wgt"]+data["pre_wgt"])
+class(data['bwt_pnds'])
+class(data["bwt_pnds"])
+class(unlist(data["bwt_pnds"]))
+model<-lm(data["bwt_pnds"]~data["bwt"]+data["pre_wgt"])
+model<-lm(unlist(data["bwt_pnds"])~data["bwt"]+data["pre_wgt"])
+model<-lm(unlist(data["bwt_pnds"])~unlist(data["bwt"])+unlist(data["pre_wgt"]))
+fit(model)
+coeff(model)
+coefficient(model)
+summary(model)
+model<-lm(unlist(data["bwt_pnds"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["wt_gain"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"]))
+model<-lm(unlist(data["bwt_pnds"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["wt_gain"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"]))
+columnames(data)
+colums(data)
+colnames(data)
+model<-lm(unlist(data["bwt_pnds"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["wtgain"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"]))
+summary(model)
+summary(model)$coefficients
+anova(model)
+model<-lm(unlist(data["bwt_pnds"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["wtgain"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"])+unlist(data["bmi"])+unlist(data("precare")))
+model<-lm(unlist(data["bwt_pnds"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["wtgain"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"])+unlist(data["bmi"]))
+model<-lm(unlist(data["bwt_pnds"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["wtgain"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"])+unlist(data["bmi"]))
+summary(model)
+model<-lm(unlist(data["bwt_pnds"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["wtgain"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"])+unlist(data["bmi"])+unlist(data["mage"])+unlist(data["restatus"])+unlist(data["mrace"]))
+summary(model)
+model<-lm(unlist(data["bwt_pnds"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["wtgain"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"])+unlist(data["bmi"])+unlist(data["mage"])+unlist(data["restatus"])+unlist(data["mrace"])+unlist(data["married"])+unlist(data["unmarried"])+unlist(data["meduc"]))
+summary(model)
+model<-lm(unlist(data["bwt_pnds"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["wtgain"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"])+unlist(data["bmi"])+unlist(data["mage"])+unlist(data["restatus"])+unlist(data["mrace"])+unlist(data["married"])+unlist(data["fage"]++unlist(data["meduc"]))
+)
+model<-lm(unlist(data["bwt_pnds"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["wtgain"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"])+unlist(data["bmi"])+unlist(data["mage"])+unlist(data["restatus"])+unlist(data["mrace"])+unlist(data["married"])+unlist(data["fage"]+unlist(data["meduc"]))
+)
+model<-lm(unlist(data["bwt_pnds"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["wtgain"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"])+unlist(data["bmi"])+unlist(data["mage"])+unlist(data["restatus"])+unlist(data["mrace"])+unlist(data["married"])+unlist(data["fage"]+unlist(data["meduc"])))
+summary(model)
+model<-lm(unlist(data["bwt_pnds"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["wtgain"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"])+unlist(data["bmi"])+unlist(data["mage"])+unlist(data["restatus"])+unlist(data["mrace"])+unlist(data["married"])+unlist(data["fage"])+unlist(data["meduc"]))
+summary(model)
+model<-lm(unlist(data["bwt_pnds"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["wtgain"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"])+unlist(data["bmi"])+unlist(data["mage"])+unlist(data["restatus"])+unlist(data["mrace"])+unlist(data["married"])+unlist(data["fage"])+unlist(data["meduc"])+unlist(data["down_syn"]))
+summary(model)
+res<-resid(model)
+plot(resid(model),res)
+plot(fitted(model),res)
+qqnorm(res)
+qqline(res)
+qqline(res)
+qqnorm(res)
+plot(density(res))
+model<-lm(unlist(data["wtgain"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["payment"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"])+unlist(data["bmi"])+unlist(data["mage"])+unlist(data["restatus"])+unlist(data["mrace"])+unlist(data["married"])+unlist(data["fage"])+unlist(data["meduc"])+unlist(data["down_syn"]))
+res<-resid(model)
+summary(model)
+max(data["mage"])
+min(data["mage"])
+min(data["bfacil"])
+max(data["bfacil"])
+model<-lm(unlist(data["wtgain"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["payment"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"])+unlist(data["bmi"])+unlist(data["mage"])+unlist(data["restatus"])+unlist(data["mrace"])+unlist(data["married"])+unlist(data["fage"])+unlist(data["meduc"])+unlist(data["down_syn"])+unlist(data["bfacil"])+unlist(data["feduc"])+unlist(data["priorlive"]))
+summary(model)
+model<-lm(unlist(data["wtgain"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["payment"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"])+unlist(data["bmi"])+unlist(data["mage"])+unlist(data["restatus"])+unlist(data["mrace"])+unlist(data["married"])+unlist(data["fage"])+unlist(data["meduc"])+unlist(data["down_syn"])+unlist(data["bfacil"])+unlist(data["feduc"]))
+summary(model)
+model<-lm(unlist(data["wtgain"])~unlist(data["bwt"])+unlist(data["gestation"])+unlist(data["payment"])+unlist(data["del_wgt"])+unlist(data["pre_wgt"])+unlist(data["bmi"])+unlist(data["mage"])+unlist(data["restatus"])+unlist(data["mrace"])+unlist(data["married"])+unlist(data["fage"])+unlist(data["meduc"])+unlist(data["down_syn"])+unlist(data["bfacil"]))
+summary(model)
+colnames(data)
+data_wtgain<-data[-data("wtgain")]
+data_wtgain<-data[-c("wtgain")]
+data_wtgain<-data[-data["wtgain"]]
+data_wtgain<-data[-c("wtgain")]
+drops<-c("wtgain")
+data[!(names(data) %in% drops)]
+data_wtgain <-data[!(names(data) %in% drops)]
+ncols(data_wtgain)
+ncol(data_wtgain)
+ncol(data)
+drops1<-c("bwt_pnds")
+data_bwtpnds <-data[!(names(data) %in% drops1)]
+ncol(data_bwtpnds)
+colnames(dara_bwtpnds)
+colnames(data_bwtpnds)
+colnames(data_wtgain)
+data[c(1)]
+data(c1)
+data[c(1)]
+nrow(data[c(1)])
+nrow(data)
+m<-lm(data["wt_gain"]~data_wtgain[c(1)])
+data_wtgain[c(1)
+]
+data_wtgain[c(1)]
+m<-lm(data["wt_gain"]~data_wtgain[c(1)])
+m<-lm(data["wt_gain"]~data[c(1)])
+data[c(1)]
+colnames(data[c(1)])
+colnames(data)
+data_wtgain
+m<-lm(data["wt_gain"]~data_wtgain[c(1)])
+m<-lm(data["wt_gain"]~data[c(1)])
+data["wt_gain"]
+data["wt_gain"]
+colnames(data)
+data["wtgain"]
+m<-lm(data["wtgain"]~data[c(1)])
+m<-lm(data["wtgain"]~unlist(data[c(1)]))
+m<-lm(unlist(data["wtgain"])~unlist(data[c(1)]))
+summary(m)
+class(data[c(1)])
+class(unlist(data[c(1)]))
+fileConn<-file("1.txt")
+writeLines("lm<-data")
+close(fileConn)
+cwd()
+getwd()
+set_wd("/Users/dc/test_stuff/regression")
+setwd("/Users/dc/test_stuff/regression")
+fileConn<-file("1.txt")
+writeLines(c("Hello","World"), fileConn)
+close(fileConn)
+fileConn<-file("1.txt")
+writeLines(c("model<-lm()","World"), fileConn)
+fileConn<-file("1.txt")
+writeLines(c("model<-lm(data['wtgain']~data[c(1)])"), fileConn)
+close(fileConn)
+model<-lm(data['wtgain']~data[c(1)])
+fileConn<-file("1.txt")
+writeLines(c("m<-lm(unlist(data['wtgain'])~unlist(data[c(1)]))"), fileConn)
+close(fileConn)
+m<-lm(unlist(data['wtgain'])~unlist(data[c(1)]))
+summary(m)
+for (x in 1:10){}
+for (x in 1:10){}
+for (x in 1:10){
+print('file("+x+")'
+}
+print(x)
+for (x in 1:10){
+print(x)
+}
+for (x in 1:10){
+print('file('+x)
+}
+print(paste('file(',x)
+}
+for (x in 1:10){
+foo=paste("file(",x,".txt")
+print(foo)
+}
+for (x in 1:10){
+foo=paste("file(",x,".txt",sep="")
+print(foo)
+}
+for (x in 1:10){
+foo=paste("file(",x,").txt",sep="")
+print(foo)
+}
+for (x in 1:10){
+foo=paste("file(",x,".txt)",sep="")
+print(foo)
+}
+for (x in 1:10){
+foo=paste("fileConn<-file(",x,".txt)",sep="")
+print(foo)
+}
+for (x in 1:10){
+foo=paste(fileConn<-file(,x,".txt)",sep="")
+print(foo)
+fileConn<-file("1.txt")
+a=1
+b=paste(as.character(a),".txt")
+print(b)
+b=paste(as.character(a),".txt",sep="")
+print(b)
+fileConn<-file(b)
+writeLines(c("Hello","World"), fileConn)
+close(fileConn)
+colnames(data)
+sum(is.na(data$col))
+sum(is.na(data$apgar5))
+sum(is.na(data$apgar10))
+colSums(is.na(data))
+data['apgar10']
+gsub("\\*|\\.", "", data$apgar10)
+colSums(is.na(data))
+gsub("\\*|\\.", , data$apgar10)
+gsub("", , data$apgar10)
+df[df == ""] <- NA
+df[df == ""] <- NA
+data<-read.csv("/Users/dc/Downloads/datasets_irc_workshop/BIRTH.csv")
+gsub("\\*|\\.", NA, data$apgar10)
+colSums(is.na(data))
+data<-read.csv("/Users/dc/Downloads/datasets_irc_workshop/BIRTH.csv")
+gsub("\\*|\\.", N/A, data$apgar10)
+gsub("\\*|\\.", 'N/A', data$apgar10)
+colSums(is.na(data))
+data<-read.csv("/Users/dc/Downloads/datasets_irc_workshop/BIRTH.csv")
+na.strings = c(""," ",NA,"."))
+na.strings = c(""," ",NA))
+na.strings = c(""," ",NA,".")
+sum(is.na(data$apgar10))
+data$apgar10
+na.strings = c(""," ",NA,".")
+a<-class(NA)
+a
+sum(is.na(a))
+class(class(NA))
+class(class("NA"))
+sum(is.na(class("NA")))
+sum(is.na(class(NA)))
+sum(is.na(NA))
+gsub(".", NA, data$apgar10)
+sum(is.na(data))
+sum(is.na(data))
+sum(is.na(data$apgar10))
+colSums(is.na(data))
+sum(is.na(data))
+data$apgar10
+df[df == "."] <- NA
+data[data == "."] <- NA
+data$apgar10
+sum(is.na(data))
+sum(is.na(data$apgar10))
+colSums(is.na(data))
