@@ -1,0 +1,33 @@
+---
+title: "mediation"
+output: html_document
+https://www.youtube.com/watch?v=X6bdxTukNWI
+date: "2023-02-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+install.packages("mediation")
+install.packages("rockchalk")
+install.packages("multilevel")
+install.packages("bda")
+install.packages("gvlma")
+install.packages("stargazer")
+library(mediation)
+library(rockchalk)
+library(multilevel)
+library(bda)
+library(gvlma)
+library(stargazer)
+```
+
+```{r}
+set.seed(123)
+N<-100
+X<-rnorm(N,80,5)
+M<-0.6*X+rnorm(N,0,3)
+Y<-round(70+(0.4*M+rnorm(N,0,3)))
+Meddata<-data.frame(X,M,Y)
+head(Meddata)
+```
+

@@ -9,7 +9,7 @@ library(car)
 library("lm.beta")
 ```
 
-
+<h1>Do not put all Xn variables in LM!! Why this is not a good idea? </h1>
 ```{r}
 BIRTH<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/BIRTH.csv")
 colnames(BIRTH)
