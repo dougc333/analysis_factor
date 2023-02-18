@@ -3,10 +3,12 @@ title: "Birth Notebook"
 output: html_notebook
 ---
 ```{r}
-install.packages("car")
-install.packages("lm.beta")
+#install.packages("car")
+#install.packages("lm.beta")
 library(car)
-library("lm.beta")
+library(lm.beta)
+library(tidyverse)
+library(dplyr)
 ```
 
 <h1>Do not put all Xn variables in LM!! Why this is not a good idea? </h1>
@@ -18,6 +20,7 @@ APGAR10 colunn is not an integer
 ```{r}
 sapply(BIRTH,class)
 ```
+Birth columns: 
 
 
 ```{r}
@@ -44,12 +47,67 @@ head(BIRTH$bwt_pnds,n=10)
 head(BIRTH$gestation,n=10)
 head(BIRTH$gestation_days,n=10)
 ```
+```{r}
+#she ran a lm with only birth weight pounds
+m_ges<-lm(BIRTH$bwt_pnds~BIRTH$gestation)
+m_last_preg<-lm(BIRTH$bwt_pnds~BIRTH$last_preg)
+m_bmi<-lm(BIRTH$bwt_pnds~BIRTH$bmi)
+m_pre_wgt<-lm(BIRTH$bwt_pnds~BIRTH$pre_wgt)
+m_del_wgt<-lm(BIRTH$bwt_pnds~BIRTH$del_wgt)
+m_wtgain<-lm(BIRTH$bwt_pnds~BIRTH$wtgain)
+m_bwt<-lm(BIRTH$bwt_pnds~BIRTH$bwt)
+m_ges_res <- resid(m_ges)
+m_last_preg_res <- resid(m_last_preg)
+m_bmi_res<-resid(m_bmi)
+m_pre_wgt_res<-resid(m_pre_wgt)
+m_del_wgt_res<-resid(m_del_wgt)
+m_wtgain_res<-resid(m_wtgain)
+m_bwt_res<-resid(m_bwt)
+qqnorm(m_ges_res)
+qqline(m_ges_res)
+qqnorm(m_last_preg_res)
+qqline(m_last_preg_res)
+qqnorm(m_bmi_res)
+qqline(m_bmi_res)
+qqnorm(m_pre_wgt_res)
+qqline(m_pre_wgt_res)
+qqnorm(m_del_wgt_res)
+qqline(m_del_wgt_res)
+qqnorm(m_wtgain_res)
+qqline(m_wtgain_res)
+qqnorm(m_bwt_res)
+qqline(m_bwt_res)
+
+```
+OK the m_bwt_res<-resid(m_bwt) model which is birth weight in pounds regressed on birth weight in ounces shows a lot
+of skew. This is funny. Is same as y=Constant*y. What is this regression? 
+This matches the gestation is the first one, seems the residuals are normal in this predictor. 
+
 Run a regression with 1 predictor. Correlation and cov test
 
 ```{r}
 cor(BIRTH$bwt_pnds, BIRTH$gestation)
 cov(BIRTH$bwt_pnds, BIRTH$gestation)
 ```
+What is the difference between the correlation and covariance? Correlation close to 1 or -1 means highly correlated and
+a 0 means not correlated. Looks like halfway so correlated
+```{r}
+#these are the same variable. 
+cor(BIRTH$bwt, BIRTH$bwt_pnds)
+cov(BIRTH$bwt, BIRTH$bwt_pnds)
+```
+```{r}
+
+corr_data<-BIRTH %>%
+  select(gestation,last_preg, bmi, pre_wgt, del_wgt, wtgain, bwt, bwt_pnds)
+cor(corr_data)
+```
+When you see a 1.00000 or high value off the diagonal. .93 is high!!! del_wgt and pre_wgt same. pre_wgt and bmi same
+Those 3 closely correlated. Gestattion not related to those 3. wt_gain also good like gestation. bwt and bwt_pnds same. Go back and look at residuals of wt_gain. wg_gain has bad residuals. Funny. 
+
+Covariance? Very large, not bounded. Hard to tell what is large and not. 
+
+
 The correlation doesnt really tell you anything. Not a 1 strongly correlated and not a 0 not corrrelated. 
 Same with covariance, will be smaller or bigger if we change the units. cov dependent on magnitude of units
 
