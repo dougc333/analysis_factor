@@ -1,7 +1,11 @@
 ---
 title: "Birth Notebook"
 output: html_notebook
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
+
 ```{r}
 #install.packages("car")
 #install.packages("lm.beta")
@@ -11,17 +15,77 @@ library(tidyverse)
 library(dplyr)
 ```
 
-<h1>Do not put all Xn variables in LM!! Why this is not a good idea? </h1>
+<h1>Do not put all Xn variables in LM!! Why this is not a good
+idea?</h1>
+
 ```{r}
 BIRTH<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/BIRTH.csv")
 colnames(BIRTH)
 ```
-APGAR10 colunn is not an integer
+
+APGAR10 colunn is not an integer. APGAR5, APGAR10 are infant health scores
+
+bfacil: all 1, drop this
+mage:age, 1-48
+restatus: 
+mrace:
+married:0/1
+unmarried:0/1 opposite of married column. 
+meduc:
+fage
+frace"
+feduc"
+priorlive: previous births, if have 2 past births then this is 3. 
+priordead: previous deaths(verify)
+birth_order_cat"
+last_preg"
+precare"
+precare_cat"
+previs"
+previs_rec"
+cig_0"
+cig_1"
+cig_2"
+cig_3"
+cig_prior"
+cig_1st"
+cig_2nd"
+cig_3rd"
+bmi"
+bmi_cat"
+pre_wgt"
+del_wgt"
+wtgain"
+wtgain_cat"
+deliver_method"
+attendant"
+payment"
+apgar5"
+gestation"
+gestrec10"
+gest_cat2"
+down_syn"
+sex"
+wic"
+bfed"
+cig_rec"
+bwt"
+bwt_pnds"
+```{r}
+sapply(BIRTH, function(df_numeric) range(df_numeric))
+```
+```{r}
+get_numeric_cols<-select_if(BIRTH, is.numeric)
+ncol(get_numeric_cols) #there should be one less column which is not numeric, APGAR10
+ncol(BIRTH)
+```
+
+
 ```{r}
 sapply(BIRTH,class)
 ```
-Birth columns: 
 
+Birth columns:
 
 ```{r}
 num=0
@@ -47,6 +111,7 @@ head(BIRTH$bwt_pnds,n=10)
 head(BIRTH$gestation,n=10)
 head(BIRTH$gestation_days,n=10)
 ```
+
 ```{r}
 #she ran a lm with only birth weight pounds
 m_ges<-lm(BIRTH$bwt_pnds~BIRTH$gestation)
@@ -79,9 +144,12 @@ qqnorm(m_bwt_res)
 qqline(m_bwt_res)
 
 ```
-OK the m_bwt_res<-resid(m_bwt) model which is birth weight in pounds regressed on birth weight in ounces shows a lot
-of skew. This is funny. Is same as y=Constant*y. What is this regression? 
-This matches the gestation is the first one, seems the residuals are normal in this predictor. 
+
+OK the m_bwt_res\<-resid(m_bwt) model which is birth weight in pounds
+regressed on birth weight in ounces shows a lot of skew. This is funny.
+Is same as y=Constant\*y. What is this regression? This matches the
+gestation is the first one, seems the residuals are normal in this
+predictor.
 
 Run a regression with 1 predictor. Correlation and cov test
 
@@ -89,35 +157,46 @@ Run a regression with 1 predictor. Correlation and cov test
 cor(BIRTH$bwt_pnds, BIRTH$gestation)
 cov(BIRTH$bwt_pnds, BIRTH$gestation)
 ```
-What is the difference between the correlation and covariance? Correlation close to 1 or -1 means highly correlated and
-a 0 means not correlated. Looks like halfway so correlated
+
+What is the difference between the correlation and covariance?
+Correlation close to 1 or -1 means highly correlated and a 0 means not
+correlated. Looks like halfway so correlated
+
 ```{r}
 #these are the same variable. 
 cor(BIRTH$bwt, BIRTH$bwt_pnds)
 cov(BIRTH$bwt, BIRTH$bwt_pnds)
 ```
+
 ```{r}
 
 corr_data<-BIRTH %>%
   select(gestation,last_preg, bmi, pre_wgt, del_wgt, wtgain, bwt, bwt_pnds)
 cor(corr_data)
 ```
-When you see a 1.00000 or high value off the diagonal. .93 is high!!! del_wgt and pre_wgt same. pre_wgt and bmi same
-Those 3 closely correlated. Gestattion not related to those 3. wt_gain also good like gestation. bwt and bwt_pnds same. Go back and look at residuals of wt_gain. wg_gain has bad residuals. Funny. 
 
-Covariance? Very large, not bounded. Hard to tell what is large and not. 
+When you see a 1.00000 or high value off the diagonal. .93 is high!!!
+del_wgt and pre_wgt same. pre_wgt and bmi same Those 3 closely
+correlated. Gestattion not related to those 3. wt_gain also good like
+gestation. bwt and bwt_pnds same. Go back and look at residuals of
+wt_gain. wg_gain has bad residuals. Funny.
 
+Covariance? Very large, not bounded. Hard to tell what is large and not.
 
-The correlation doesnt really tell you anything. Not a 1 strongly correlated and not a 0 not corrrelated. 
-Same with covariance, will be smaller or bigger if we change the units. cov dependent on magnitude of units
+The correlation doesnt really tell you anything. Not a 1 strongly
+correlated and not a 0 not corrrelated. Same with covariance, will be
+smaller or bigger if we change the units. cov dependent on magnitude of
+units
 
 ```{r}
 plot(BIRTH$gestation,BIRTH$bwt_pnds,type="p",ylab="Birth Weight in Pounds",xlab="Gestation in Weeks")
 m_bwt_pnds_ges <-lm(BIRTH$bwt_pnds ~ BIRTH$gestation)
 abline(m_bwt_pnds_ges)
 ```
-We have some outliers which look funny. We have a workflow to identify these.
-IS corr independent of units? We can verify after scaling and centering!
+
+We have some outliers which look funny. We have a workflow to identify
+these. IS corr independent of units? We can verify after scaling and
+centering!
 
 ```{r}
 #regression diagnostics
@@ -131,9 +210,6 @@ jarque.test(res_m_bwt_pnds_ges)
 shapiro.test(res_m_bwt_pnds_ges)
 ```
 
-
-
-
 ```{r}
 spreadLevelPlot(m_bwt_pnds_ges)
 
@@ -143,7 +219,6 @@ spreadLevelPlot(m_bwt_pnds_ges)
 ncvTest(m_bwt_pnds_ges)
 ```
 
-
 ```{r}
 outlierTest(m_bwt_pnds_ges)
 ```
@@ -151,7 +226,8 @@ outlierTest(m_bwt_pnds_ges)
 ```{r}
 plotdb<-dfbetaPlots(m_bwt_pnds_ges, id.n=6)
 ```
-We see 4,45, 1195 returned as top 3 or topN as top outliers 
+
+We see 4,45, 1195 returned as top 3 or topN as top outliers
 
 ```{r}
 influencePlot(m_bwt_pnds_ges)
@@ -168,12 +244,11 @@ model5<-lm(bwt_pnds~gestation,data=BIRTH)
 summary(model5)
 ```
 
-
-
 ```{r}
 model6<-lm(bwt~gestation_days,data=BIRTH)
 summary(model6)
 ```
+
 ```{r}
 NLSY<-nlsy
 model7<-lm(PCS2000~CESD2000Total+Education2000+NumberBioStepAdoptChildHH2000+MCS2000,data=NLSY)
@@ -181,6 +256,7 @@ model7.1<-lm.beta(model7)
 summary(model7.1)
 
 ```
+
 ```{r}
 #missing sqrt term had to fix
 BIRTH$ln_last_preg<-log(BIRTH$last_preg)
@@ -237,4 +313,3 @@ abline(lm(BIRTH$ln_last_preg ~ BIRTH$ln_pre_wgt))
 
 
 ```
-
