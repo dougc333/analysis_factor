@@ -1,3 +1,4 @@
+#this takes the most memory and fails to run. 
 from dataclasses import dataclass
 import csv
 
