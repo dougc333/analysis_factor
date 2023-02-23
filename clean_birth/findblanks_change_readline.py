@@ -11,7 +11,7 @@ class ReadData:
     def __init__(self, datafile):
         self.file_name = datafile
         self.process()
-        self.stack_stats = {}
+        self.stack_stat = {}
         
     def process(self):
         line_no = 0
@@ -29,7 +29,9 @@ class ReadData:
                 stack.append(" ")
             else:
                 #not a blank space, if we have any spaces in stack, store this into dict
-                
+                if len(stack)>0:
+                    self.stack_stat[idx]=Filler(idx, , line_no)
+                    stack=[]
 
 
 
