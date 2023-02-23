@@ -1,0 +1,17 @@
+# History files
+.Rhistory
+.Rapp.history
+.DS_Store
+
+
+**/dataprocessing
+
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
