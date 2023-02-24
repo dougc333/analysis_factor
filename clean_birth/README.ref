@@ -1,3 +1,4 @@
 verify which python and make sure this is in conda or virtual environment
 defaults to /usr/bin/python on mac which is python 2.7!! 
 
+slots note: https://gdevops.gitlab.io/tuto_python/versions/3.10.0/slots_dataclass/slots_dataclass.html
