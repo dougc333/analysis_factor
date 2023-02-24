@@ -2,7 +2,7 @@ from dataclasses import dataclass
 import csv
 
 @dataclass
-class Filler:
+class Filler(slot=True):
     pos:int
     len:int
     line_no:int
