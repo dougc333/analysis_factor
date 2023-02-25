@@ -2,8 +2,8 @@
 
 ###Change the working directory code to where you have the data saved
 ###Set working directory
-setwd("C:/Users/Karen/Dropbox/TAF/Workshops/IRC/data")
 
+setwd("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop")
 
 ###Use read.csv to import the data set
 NLSY<-read.csv("NLSY.csv",header=T)

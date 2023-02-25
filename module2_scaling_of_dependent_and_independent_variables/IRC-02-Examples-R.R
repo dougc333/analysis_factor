@@ -2,18 +2,33 @@
 
 ###Change the working directory code to where you have the data saved
 ###Set working directory
-setwd("C:/Users/Karen/Dropbox/TAF/Workshops/IRC/data")
+setwd("/Users/dc/analysis_factor")
 
 #if you don't already have this package installed remove the # sign and run the code
 #install.packages("psych")
 library(psych)
 
 ###Use read.csv to import the data set
-NLSY<-read.csv("NLSY.csv",header=T)
+NLSY<-read.csv("/Users/dc/analysis_factor/datasets_irc_workshop/NLSY.csv",header=T)
+nrow(NLSY)
+ncol(NLSY)
+hist(NLSY$PCS2000)
+colnames(NLSY)
+
+#plot MCS2000, this is 1-21? no.  
+sapply(NLSY, class)
+hist(NLSY$MCS2000)
+#these dont work
+min(NLSY$MCS2000,rm.NA=TRUE)
+max(NLSY$MCS2000, rm.NA=TRUE)
+mean(NLSY$MCS2000, rm.NA=TRUE)
 
 #################
 ##2.2 Centering
 #################
+
+# -------------------------------------------------------------------------
+
 
 ##Mental Health Composite Score
 NLSY$MCSCen<-NLSY$MCS2000-5280.05
@@ -77,7 +92,10 @@ summary(model4)
 ##Birth weight already has variables in the data set both in pounds and in ounces;
 ##Gestation is in the data set in weeks so we are changing it to days by multiplying by 7;
 
-BIRTH<-read.csv("BIRTH.csv",header=T)
+BIRTH<-read.csv("/Users/dc/analysis_factor/datasets_irc_workshop/BIRTH.csv",header=T)
+
+
+
 
 BIRTH$gestation_days<-BIRTH$gestation*7
 
