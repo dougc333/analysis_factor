@@ -1,0 +1,129 @@
+##########################################################################
+##This syntax file creates the examples in the Module 6 lesson videos
+##########################################################################
+
+###Change the working directory code to where you have the data saved
+###Set working directory
+setwd("/Users/dc/analysis_factor")
+
+###Use read.csv to import the data set
+NLSY<-read.csv("/Users/dc/analysis_factor/datasets_irc_workshop/NLSY.csv",header=T)
+
+## create new variables and reassign values
+
+NLSY$MCSCen<-NLSY$MCS2000-5280.05
+NLSY$MCSSq<-NLSY$MCSCen*NLSY$MCSCen;
+
+NLSY$CESDCen<-NLSY$CESD2000Total-3.5
+NLSY$EducCen<-NLSY$Education2000-12
+
+NLSY$PovertyStatus2000c2[NLSY$PovertyStatus2000c2==1]<- NA   
+
+NLSY$PovertyD[NLSY$PovertyStatus2000c2==2]<-1
+NLSY$PovertyD[NLSY$PovertyStatus2000c2==3]<-0
+
+NLSY$UnemployedWksPastCal2000cont[NLSY$UnemployedWksPastCal2000cont<0]<- NA 
+
+NLSY$DeprXEduc<-NLSY$EducCen*NLSY$CESDCen
+NLSY$DeprXPov<-NLSY$PovertyD*NLSY$CESDCen
+
+
+## Part 6.1 The Context of the Full Model
+
+library(psych)
+library(emmeans)
+library(car)
+corr.test(NLSY[,c("PCS2000", "PovertyD", "CESDCen", "EducCen", "NumberBioStepAdoptChildHH2000", "MCSCen","MCSSq", "DeprXEduc" ,"DeprXPov")], use="pairwise.complete.obs")
+
+NLSY$Marital2000c5 <-as.factor(NLSY$Marital2000c5)##change to a categorical variable or factor
+
+levels(NLSY$Marital2000c5)
+NLSY$Marital2000c5 <-relevel(NLSY$Marital2000c5,"5")##set reference category
+
+NLSY$PovertyStatus2000c2 <-as.factor(NLSY$PovertyStatus2000c2)
+levels(NLSY$PovertyStatus2000c2)
+
+NLSY$PovertyStatus2000c2 <-relevel(NLSY$PovertyStatus2000c2,"3")
+levels(NLSY$PovertyStatus2000c2)
+
+model1 <-lm(PCS2000~ PovertyStatus2000c2+Marital2000c5+EducCen+NumberBioStepAdoptChildHH2000+MCSCen+MCSSq+CESDCen+CESDCen*EducCen +PovertyStatus2000c2*CESDCen,data=NLSY)
+Anova(model1,type = 3)
+summary(model1)
+
+ ##create emmeans and save as a data frame to add to graph 
+ms.emm<-as.data.frame(emmeans(model1,~Marital2000c5))
+
+
+##PCS by Marital Status plot
+##to get a scatterplot, change Martial status back to numeric. 
+##otherwise, you'll get side-by-side boxplots
+NLSY$Marital2000c5<-as.numeric(NLSY$Marital2000c5)
+plot(NLSY$Marital2000c5,NLSY$PCS2000,type="p",ylab="PCS2000",xlab="MARITAL STATUS")
+lines(ms.emm,type="o",col="orange",pch=16)
+
+
+##PCS by number of children plot
+plot(NLSY$NumberBioStepAdoptChildHH2000,NLSY$PCS2000,type="p",ylab="PCS2000",xlab="Number of Kids")
+abline(lm(NLSY$PCS2000 ~ NLSY$NumberBioStepAdoptChildHH2000))
+
+##PCS by number of children plot
+plot(NLSY$MCSCen,NLSY$PCS2000,type="p",ylab="PCS2000",xlab="MCSCen")
+
+##PCS by depression, colored by poverty status
+scatterplot(NLSY$PCS2000~NLSY$CESDCen|NLSY$PovertyStatus2000c2,smooth=FALSE)
+
+#Marginal means and contrast for poverty groups at low end of CESD
+deprlow.emm<-emmeans(model1,~PovertyStatus2000c2,at=list(CESDCen=c(-3.5)))
+deprlow.emm
+pairs(deprlow.emm)
+
+#Marginal means and contrast for poverty groups at mean of CESD
+deprmid.emm<-emmeans(model1,~PovertyStatus2000c2,at=list(CESDCen=c(0)))
+deprmid.emm
+pairs(deprmid.emm)
+
+#Marginal means and contrast for poverty groups at high end of CESD
+deprhigh.emm<-emmeans(model1,~PovertyStatus2000c2,at=list(CESDCen=c(12.5)))
+deprhigh.emm
+pairs(deprhigh.emm)
+
+##PCS by Education, separate by depression
+plot(NLSY$EducCen,NLSY$PCS2000,type="p",ylab="Physical Health Composite Score",xlab="Education Centered at 12")
+abline(lm(NLSY$PCS2000 ~ NLSY$EducCen),col="orange", lwd=5)
+abline(a=5453,b=8.1,col="orange", lty="dashed",lwd=5)
+abline(a=4355,b=96.6,col="orange", lty="dotted",lwd=5)
+
+##PCS by Depression, separate by Education
+plot(NLSY$CESDCen,NLSY$PCS2000,type="p",ylab="Physical Health Composite Score",xlab="Depression Centered at its mean")
+abline(lm(NLSY$PCS2000 ~ NLSY$CESDCen),col="orange", lwd=5)
+abline(a=5295.3,b=-52,col="orange", lty="dashed",lwd=5)
+abline(a=5130,b=-85.2,col="orange", lty="dotted",lwd=5)
+
+
+## Part 6.2 Choices about Coding and Scaling: Discrete and Ordinal Predictors
+
+#Discrete X treated as categorical.
+BIRTH<-read.csv("/Users/dc/analysis_factor/datasets_irc_workshop/BIRTH.csv",header=T)
+BIRTH$birth_order_cat <-as.factor(BIRTH$birth_order_cat)
+BIRTH$sex <-as.factor(BIRTH$sex)
+BIRTH$sex<-relevel(BIRTH$sex,"2")
+BIRTH$birth_order_cat  <-relevel(BIRTH$birth_order_cat ,"8")
+
+levels(BIRTH$sex)
+
+model2 <-lm(wtgain~sex+birth_order_cat+birth_order_cat*sex,data=BIRTH)
+summary(model2)
+order.emm<-as.data.frame(emmeans(model2,~birth_order_cat*sex))
+
+#split emmeans based on infant sex and create two vectors for adding emmeans to the plot
+split(x=order.emm$emmean,f=order.emm$sex)
+female<-split(x=order.emm$emmean,f=order.emm$sex)$'1'
+male<-split(x=order.emm$emmean,f=order.emm$sex)$'2'
+
+BIRTH$birth_order<-as.numeric(BIRTH$birth_order)
+
+#Note the means on this graph are actual emmeans.
+scatterplot(x=BIRTH$birth_order,y=BIRTH$wtgain,groups=BIRTH$sex, regLine=FALSE, smooth=FALSE, ylab="Maternal Weight Gain in pounds",xlab="Live Birth Order")
+lines(female,type="o",col="magenta",pch=16)
+lines(male,type="o",col="blue",pch=16)
+
