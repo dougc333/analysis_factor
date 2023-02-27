@@ -2,11 +2,11 @@
 
 ###Change the working directory code to where you have the data saved
 ###Set working directory
-setwd("C:/Users/Karen/Dropbox/TAF/Workshops/IRC/data")
+setwd("/Users/dc/analysis_factor")
 
 
 ###Use read.csv to import the data set
-NLSY<-read.csv("NLSY.csv",header=T)
+NLSY<-read.csv("/Users/dc/analysis_factor/datasets_irc_workshop/NLSY.csv",header=T)
 NLSY$MCS2000[NLSY$MCS2000<=100]<- NA 
 NLSY$PCS2000[NLSY$PCS2000<=100]<- NA 
 
@@ -25,7 +25,9 @@ NLSY$MCS2000Sq<-NLSY$MCSCen^2 #squared term
 #if you don't already have this package installed remove the # sign and run the code
 #install.packages("ggplot2", dependencies = TRUE)
 library(ggplot2)
-
+ggplot(NLSY, aes(x=CESDCen, y=PCS2000)) + geom_point()+stat_smooth(se=F, method='lm', formula=y~x)
+#how to graph scatterplot for PCS2000?
+ggplot(NLSY, aes(x=PCS2000, y=PCS2000)) + geom_point()+stat_smooth(se=F, method='lm', formula=y~x)
 
 ## Scatterplot with regression line
 ## We're using ggplot b/c it will add the quadratic curve
@@ -33,6 +35,7 @@ ggplot(NLSY, aes(x=MCSCen, y=PCS2000)) + geom_point()+stat_smooth(se=F, method='
 
 ## Scatterplot with quadratic curve
 ggplot(NLSY, aes(x=MCSCen, y=PCS2000)) + geom_point()+stat_smooth(se=F, method='lm', formula=y~poly(x,2))
+
 
 ## Mental Health linear and quadratic
 model1<-lm(PCS2000~MCSCen+MCS2000Sq,data=NLSY)
@@ -62,7 +65,7 @@ summary(model4)
 ###################################################
 
 ## Open the birth data
-BIRTH<-read.csv("BIRTH.csv",header=T)
+BIRTH<-read.csv("/Users/dc/analysis_factor/datasets_irc_workshop/BIRTH.csv",header=T)
 
 ## Center Birth Order, then create squared term
 BIRTH$orderCen<-BIRTH$birth_order_cat-3
@@ -81,3 +84,4 @@ summary(model5)
 
 ##Defining the colors to be different for each value of sex in the aes makes both the points and the curves separate for each sex
 ggplot(BIRTH, aes(x=orderCen, y=wtgain, colour = factor(sex))) + geom_point() +stat_smooth(se=F, method='lm', formula=y~poly(x,2))
+

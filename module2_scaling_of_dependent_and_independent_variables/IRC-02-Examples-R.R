@@ -19,9 +19,9 @@ colnames(NLSY)
 sapply(NLSY, class)
 hist(NLSY$MCS2000)
 #these dont work
-min(NLSY$MCS2000,rm.NA=TRUE)
-max(NLSY$MCS2000, rm.NA=TRUE)
-mean(NLSY$MCS2000, rm.NA=TRUE)
+min(NLSY$MCS2000, na.rm=TRUE)
+max(NLSY$MCS2000, na.rm=TRUE)
+mean(NLSY$MCS2000, na.rm=TRUE)
 
 #################
 ##2.2 Centering
@@ -42,16 +42,16 @@ model1<-lm(PCS2000~MCS2000,data=NLSY)
 summary(model1)
 
 plot(NLSY$MCS2000,NLSY$PCS2000,type="p",xlim=c(0,7000),ylab="Physical Health Composite Score",xlab="Mental Health Composite Score") 
-abline(lm(NLSY$PCS2000 ~ NLSY$MCS2000))
-abline(v=0) #add vertical line at 0
+abline(lm(NLSY$PCS2000 ~ NLSY$MCS2000),col="red")
+abline(v=0, col="red") #add vertical line at 0
 
 ##Centered Mental Health Composite Score
 model2<-lm(PCS2000~MCSCen,data=NLSY)
 summary(model2)
 
 plot(NLSY$MCSCen,NLSY$PCS2000,type="p",ylab="Physical Health Composite Score",xlab="Centered Mental Health Composite Score") 
-abline(lm(NLSY$PCS2000 ~ NLSY$MCSCen)) #add regression line
-abline(v=0) #add vertical line at 0
+abline(lm(NLSY$PCS2000 ~ NLSY$MCSCen),col="red") #add regression line
+abline(v=0,col="red") #add vertical line at 0
 
 
 ##Years of Education
@@ -59,9 +59,9 @@ mean(NLSY$Education2000) #calculate the mean
 
 plot(NLSY$Education2000,NLSY$PCS2000,type="p",ylab="Physical Health Composite Score",xlab="Years of Education") 
 abline(lm(NLSY$PCS2000 ~ NLSY$Education2000)) #add regression line
-abline(v=0) #add vertical line at 0
-abline(v=12) #add vertical line at 12
-abline(v=13.05) #add vertical line at the mean
+abline(v=0,col="red") #add vertical line at 0
+abline(v=12,col="red") #add vertical line at 12
+abline(v=13.05,col="red") #add vertical line at the mean
 
 NLSY$EducCen<-NLSY$Education2000-12  #Center at 12
 
