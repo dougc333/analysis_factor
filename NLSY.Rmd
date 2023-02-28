@@ -21,6 +21,8 @@ When you click the **Knit** button a document will be generated that includes bo
 You can also embed plots, for example:
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 ```{r}
+library(psych)
+
 nlsy<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/NLSY.csv")
 ```
 
@@ -29,18 +31,17 @@ nlsy<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/NLSY.
 sapply(nlsy,class)
 ```
 
-colnames seems redundant with the output above? 
 ```{r}
 colnames(nlsy)
 ```
 Physical Health Composite Score  is PCS2000
-plot y vs Xn. What was in the notes. 
+plot y vs Xn. Continuous only
 ```{r}
-plot(nlsy$R0000100, nlsy$PCS2000)
+#R0000100 ID, not data
+#PCS2000 composite physical health score, Y, plot all Xn vs PCS2000
 plot(nlsy$CESD2000Total, nlsy$PCS2000)
 plot(nlsy$CESDTotal2000cutpt, nlsy$PCS2000)
 plot(nlsy$MCS2000, nlsy$PCS2000)
-
 plot(nlsy$RelAt2000cat6, nlsy$PCS2000)
 plot(nlsy$RelAt2000cat2, nlsy$PCS2000)
 plot(nlsy$NumberBioStepAdoptChildHH2000, nlsy$PCS2000)
@@ -50,44 +51,37 @@ plot(nlsy$UnemplyWksPastCal2000c, nlsy$PCS2000)
 plot(nlsy$UnemployedWksPastCal2000cont, nlsy$PCS2000)
 plot(nlsy$IncomePercNetFam2000c, nlsy$PCS2000)
 plot(nlsy$PovertyStatus2000c2, nlsy$PCS2000)
+head(nlsy)
 ```
 ```{r}
-sapply(nlsy$MCS2000,is.numeric)
-```
-```{r}
-print(dim(nlsy$MCS2000))
-print(dim(nlsy))
-
-print(length(nlsy$MCS2000))
-print(ncol(nlsy$MCS2000))
-print(nrow(nlsy$MCS2000))
-print(typeof(nlsy$MCS2000))
-print(class(nlsy$MCS2000))
-print("333333334")
-print(nlsy$MCS2000[1])
-print("########")
-print(sapply(nlsy$MCS2000, class))
-
-print("-------")
-sapply(nlsy$MCS2000,is.na)
+mean(nlsy$CESD2000Total, na.rm=TRUE)
 ```
 
 
-
 ```{r}
-nlsy$MCS2000
+#range PCS2000
+get_range_and_mean <- function(df,col){
+  #to print multiple lines need to use cat or print on top of sprintf
+  cat(sprintf("min %s: %f \n",col,min(df[,col],na.rm=TRUE)))
+  cat(sprintf("max %s: %f \n",col,max(df[,col],na.rm=TRUE)))
+  cat(sprintf("mean %s: %f \n", col, mean(df[,col],na.rm = TRUE)))
+}
+get_range_and_mean(nlsy,"PCS2000")
 
-```
+#iterate through column names, 
+for (i in colnames(nlsy)){
+  print(i)
+  get_range_and_mean(nlsy,i)
+  print("-------------------") #no idea how this works, it prints the string with quotes!!
+}
 
-```{r}
-library(psych)
+#centering 
 nlsy$MCSCen<-nlsy$MCS2000-mean(nlsy$MCS2000,na.rm=TRUE)
-describe(nlsy$MCS2000,na.rm=TRUE)
+nlsy$PCS2000Cen <- nlsy$PCS2000-mean(nlsy$PCS2000,na.rm=TRUE)
+nlsy$CESD2000Cen =nlsy$CESD2000Total - mean(nlsy$CESD2000Total, na.rm=TRUE) #3.5 mean depression score, above 16 is clinically depressed
 
 ```
-```{r}
-describe(nlsy$MCSCen,na.rm=TRUE)
-```
+
 
 
 ```{r}
@@ -126,6 +120,8 @@ abline(v=13.05) #add vertical line at the mean
 
 
 ```{r}
+#Center Education
+#EducCen centered at 12 not actual mean to make it equal to high school graduate
 nlsy$EducCen<-nlsy$Education2000-12  #Center at 12
 plot(nlsy$EducCen,nlsy$PCS2000,type="p",ylab="Physical Health Composite Score",xlab="Years of Education")
 abline(lm(nlsy$PCS2000 ~ nlsy$EducCen)) #add regression line
@@ -144,12 +140,8 @@ hist(nlsy$CESD2000Total, nclass=21)
 ```
 
 
-```{r}
-mean(nlsy$CESD2000Total,na.rm = TRUE)
-```
 
 ```{r}
-#centered at 12 not actual mean
 plot(nlsy$CESD2000Total,nlsy$PCS2000,type="p",ylab="Physical Health Composite Score",xlab="Depression Score 0-21 Center for Epi Study") 
 abline(lm(nlsy$PCS2000 ~ nlsy$CESD2000Total)) #add regression line
 abline(v=0) #add vertical line at 0
@@ -165,5 +157,49 @@ summary(model3)
 ```{r}
 model4<-lm(PCS2000~EducCen+NumberBioStepAdoptChildHH2000+CESDCen+MCSCen,data=nlsy)
 summary(model4)
+```
+
+```{r}
+#draw interaction between EducCen and CESDCen. Select each category of EducCen and plot regression
+#line
+unique(nlsy$EducCen)
+#each value needs a regression line
+unique(nlsy[c(11)]) #the number in brackets correspond to the c index when we list columns
+
+```
+```{r}
+#colnames(nlsy[nlsy[c(11)]==0]) #NULL
+#length(dplyr::filter(nlsy, Education2000==0)) length returns the 2nd dimension. Such a lousy interface
+
+dim(dplyr::filter(nlsy, Education2000==0))
+dim(dplyr::filter(nlsy, Education2000==1))
+dim(dplyr::filter(nlsy, Education2000==2))
+dim(dplyr::filter(nlsy, Education2000==3))
+dim(dplyr::filter(nlsy, Education2000==4))
+dim(dplyr::filter(nlsy, Education2000==5))
+dim(dplyr::filter(nlsy, Education2000==6))
+dim(dplyr::filter(nlsy, Education2000==7))
+dim(dplyr::filter(nlsy, Education2000==8))
+dim(dplyr::filter(nlsy, Education2000==9))
+dim(dplyr::filter(nlsy, Education2000==10))
+dim(dplyr::filter(nlsy, Education2000==11))
+dim(dplyr::filter(nlsy, Education2000==12))
+dim(dplyr::filter(nlsy, Education2000==13))
+df_14 = (dplyr::filter(nlsy, Education2000==14))
+dim(dplyr::filter(nlsy, Education2000==15))
+dim(dplyr::filter(nlsy, Education2000==16))
+dim(dplyr::filter(nlsy, Education2000==17))
+dim(dplyr::filter(nlsy, Education2000==18))
+dim(dplyr::filter(nlsy, Education2000==19))
+dim(dplyr::filter(nlsy, Education2000==20))
+dplyr::filter(nlsy, Education2000==14)
+#how many data points are there to run regression? 
+#-7 is 12-7=5 for EducCen, 0 is EducCen=0, +7 is EducCen=19
+
+typeof(df_14) #list
+class(df_14) #dataframe which one is correct?
+dim(df_14) #plot these lines on CESD graph, want CESD2000 points and draw regression line for these points
+
+
 ```
 
