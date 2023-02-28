@@ -22,7 +22,7 @@ You can also embed plots, for example:
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
 ```{r}
 library(psych)
-
+library(tidyverse)
 nlsy<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/NLSY.csv")
 ```
 
@@ -55,6 +55,20 @@ head(nlsy)
 ```
 ```{r}
 mean(nlsy$CESD2000Total, na.rm=TRUE)
+```
+```{r}
+NLSY_drop_first_column = nlsy[,-1]
+head(NLSY_drop_first_column)
+#drop na
+typeof(NLSY_drop_first_column)
+class(NLSY_drop_first_column)
+foo = NLSY_drop_first_column %>% drop_na()
+head(foo)
+dim(NLSY_drop_first_column)
+dim(foo)
+#drop rows where there is a NA in any column. R should automatically drop these when doing regression? 
+#NLSY_clean = NLSY_drop_first_column.drop_na()
+#head(NLSY_clean)
 ```
 
 
@@ -201,5 +215,17 @@ class(df_14) #dataframe which one is correct?
 dim(df_14) #plot these lines on CESD graph, want CESD2000 points and draw regression line for these points
 
 
+```
+```{r}
+plot(nlsy$CESDCen,nlsy$PCS2000,type="p",ylab="PCS2000",xlab="CESDSCen")
+#how to draw the regression line
+abline(lm(nlsy$PCS2000~nlsy$CESDCen),col="blue")
+```
+```{r}
+df_12=dplyr::filter(nlsy, Education2000==12)
+typeof(df_12)
+class(df_12)
+df_12_clean = df_12.drop_na()
+head(df_12_clean)
 ```
 
