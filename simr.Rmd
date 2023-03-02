@@ -1,0 +1,29 @@
+---
+title: "SIMR_demo"
+output: html_document
+date: "2023-03-02"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#https://besjournals.onlinelibrary.wiley.com/doi/epdf/10.1111/2041-210X.12504
+
+
+
+
+```{r}
+library(simr)
+glmer(Pr_rate ~ Day + (1:|doctor), family="poisson" data=simdata)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
