@@ -70,16 +70,9 @@ summary(model1)
 #change size of fixed effect, x
 #want 80% conficence as rule of thumb
 fixef(model1)["x"] #prints out x regression coefficient
-fixef(model1)["x"]<-.05 #reduce fixed effect to about half. I did not know this was possible
+fixef(model1)["x"]<-.06 #reduce fixed effect to about half. I did not know this was possible
 powerSim(model1) #simulate power with sample size of 10 per group. 
-#'x', (95% confidence interval):
-#      81.20% (78.64, 83.58)
-#
-#Test: z-test
-#      Effect size for x is -0.11
-#
-#Based on 1000 simulations, (0 warnings, 0 errors)
-#alpha = 0.05, nrow = 30
+
 ```
 ```{r}
 model2<-extend(model1, along="x", n=20)
