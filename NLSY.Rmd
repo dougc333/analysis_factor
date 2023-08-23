@@ -23,12 +23,20 @@ Note that the `echo = FALSE` parameter was added to the code chunk to prevent pr
 ```{r}
 library(psych)
 library(tidyverse)
-nlsy<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/NLSY.csv")
+nlsy<-read.csv("/Users/dc/analysis_factor/workshop/datasets_irc_workshop/NLSY.csv")
+```
+```{r}
+dim(nlsy)
+nlsy_clean<-na.omit(nlsy)
+dim(nlsy_clean)
+write.csv(nlsy_clean,"clean.csv")
+getwd()
 ```
 
 
 ```{r}
 sapply(nlsy,class)
+nlsy
 ```
 
 ```{r}
