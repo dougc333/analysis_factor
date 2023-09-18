@@ -1,0 +1,22 @@
+# Diagnostics for the final model fitted in Chapter 4, using R
+
+library(lattice)
+trellis.device(color=F)
+
+# Generate Figure 4.5
+
+qqnorm(model4.2.fit, ~ranef(.,level=2))
+
+# Generate Figure 4.6
+
+qqnorm(model4.2.fit, ~ranef(.,level=1))
+
+# Generate Figure 4.7 
+ 
+qqnorm(model4.2.fit, ~resid(.), plot.it = TRUE) 
+
+# Generate Figure 4.8 (standardized residuals in R)
+
+plot(resid(model4.2.fit, type="p") ~ fitted(model4.2.fit))
+abline(h = 0, lty = 2)
+lines(lowess(resid(model4.2.fit, type="p") ~ fitted(model4.2.fit)))

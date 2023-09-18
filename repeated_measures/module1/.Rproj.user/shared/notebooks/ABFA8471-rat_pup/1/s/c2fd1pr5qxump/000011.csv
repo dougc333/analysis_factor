@@ -1,0 +1,2 @@
+"0","bwplot(weight ~ sex|treatment, data=rat_pup,aspect = 2, ylab=""Birth Weights"", "
+"0","    xlab=""SEX"",main = ""Boxplots of birth weights for levels of treatment by sex"")"

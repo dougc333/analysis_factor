@@ -1,0 +1,8 @@
+"0",""
+"0","trellis.device(color=F)"
+"0",""
+"0","# Generate Figure 3.4"
+"0",""
+"0","res <- resid(model3.3.reml.fit)"
+"0","ratred <- data.frame(rat_pup, res)"
+"0","ratred"

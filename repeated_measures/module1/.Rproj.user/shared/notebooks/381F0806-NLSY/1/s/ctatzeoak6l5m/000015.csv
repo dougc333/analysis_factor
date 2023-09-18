@@ -1,0 +1,1 @@
+"0","plot(nlsy$RelAt2000cat6, nlsy$PCS2000)"

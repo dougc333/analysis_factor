@@ -1,0 +1,17 @@
+"0","```r
+\"https://www.kaggle.com/competitions/rossmann-store-sales/overview\"
+```"
+"1","[1] \"https://www.kaggle.com/competitions/rossmann-store-sales/overview\"
+"
+"0","```r
+train<-read.csv(file=\"/Users/dc/rossman_data/train.csv\")
+store<-read.csv(file=\"/Users/dc/rossman_data/store.csv\")
+dim(store)
+```"
+"1","[1] 1115   10
+"
+"0","```r
+dim(train)
+```"
+"1","[1] 1017209       9
+"

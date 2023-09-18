@@ -1,0 +1,1 @@
+"0","plot(nlsy$UnemployedWksPastCal2000cont, nlsy$PCS2000)"

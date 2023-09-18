@@ -1,0 +1,13 @@
+"0","model3.3.reml.fit <- lme(weight ~ sex1 + litsize + treatment,"
+"0","                             random  = ~1 | litter, rat_pup, method = ""REML"","
+"0","                             weights = varIdent(form = ~1 | trtgrp))"
+"0","summary(model3.3.reml.fit)"
+"1","Linear mixed-effects model fit by "
+"1","REML
+"
+"1","  Data:"
+"1"," "
+"1","rat_pup"
+"1"," "
+"1","
+"

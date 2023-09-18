@@ -1,0 +1,3 @@
+"0","#R0000100 ID, not data"
+"0","#PCS2000 composite physical health score, Y, plot all Xn vs PCS2000"
+"0","plot(nlsy$CESD2000Total, nlsy$PCS2000)"

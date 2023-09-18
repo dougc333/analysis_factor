@@ -1,0 +1,6 @@
+"0","ggplot(data = df_small3, aes(x=Date, y=Sales)) +"
+"0","  geom_point() +"
+"0","  labs(x = ""Date"","
+"0","    y = ""Daily Sales"","
+"0","    title = ""Sales vs. Day"","
+"0","    subtitle = ""Rossman 2013-2015"")"

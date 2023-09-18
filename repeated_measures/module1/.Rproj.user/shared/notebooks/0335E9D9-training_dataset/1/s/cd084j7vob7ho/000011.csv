@@ -1,0 +1,38 @@
+"1","
+"
+"1","Correlation Structure: General
+"
+"1"," Formula: ~1 | ID 
+"
+"1"," Parameter estimate(s):
+"
+"1"," Correlation:"
+"1"," "
+"1","
+"
+"1"," "
+"1"," 1    "
+"1","
+2"
+"1"," 0.988"
+"1","
+"
+"1","Variance function:
+"
+"1"," Structure: Different standard deviations per stratum
+"
+"1"," Formula: ~1 | as.factor(time) 
+"
+"1"," Parameter estimates:
+"
+"1","        1 "
+"1","        2 "
+"1","
+"
+"1","1.0000000 "
+"1","0.9897194 "
+"1","
+"
+"1","
+Coefficients:
+"

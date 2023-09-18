@@ -1,0 +1,315 @@
+---
+title: "Birth Notebook"
+output: html_notebook
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r}
+#install.packages("car")
+#install.packages("lm.beta")
+library(car)
+library(lm.beta)
+library(tidyverse)
+library(dplyr)
+```
+
+<h1>Do not put all Xn variables in LM!! Why this is not a good
+idea?</h1>
+
+```{r}
+BIRTH<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/BIRTH.csv")
+colnames(BIRTH)
+```
+
+APGAR10 colunn is not an integer. APGAR5, APGAR10 are infant health scores
+
+bfacil: all 1, drop this
+mage:age, 1-48
+restatus: 
+mrace:
+married:0/1
+unmarried:0/1 opposite of married column. 
+meduc:
+fage
+frace"
+feduc"
+priorlive: previous births, if have 2 past births then this is 3. 
+priordead: previous deaths(verify)
+birth_order_cat"
+last_preg"
+precare"
+precare_cat"
+previs"
+previs_rec"
+cig_0"
+cig_1"
+cig_2"
+cig_3"
+cig_prior"
+cig_1st"
+cig_2nd"
+cig_3rd"
+bmi"
+bmi_cat"
+pre_wgt"
+del_wgt"
+wtgain"
+wtgain_cat"
+deliver_method"
+attendant"
+payment"
+apgar5"
+gestation"
+gestrec10"
+gest_cat2"
+down_syn"
+sex"
+wic"
+bfed"
+cig_rec"
+bwt"
+bwt_pnds"
+```{r}
+sapply(BIRTH, function(df_numeric) range(df_numeric))
+```
+```{r}
+get_numeric_cols<-select_if(BIRTH, is.numeric)
+ncol(get_numeric_cols) #there should be one less column which is not numeric, APGAR10
+ncol(BIRTH)
+```
+
+
+```{r}
+sapply(BIRTH,class)
+```
+
+Birth columns:
+
+```{r}
+num=0
+get_integer_cols<-function(df){
+  for(i in 1:ncol(df)) {
+    #print(colnames(df[i]))
+    if(sapply(df[i],class)=="integer" || sapply(df[i],class)=="numeric"){
+      num=num+1
+      print(paste("col",i,":",colnames(df[i])))
+    }
+  }
+  print(paste("num:",num))
+  print(paste("num cols not integer or numeric:",ncol(birth)-num))
+}
+get_integer_cols(BIRTH)
+```
+
+```{r}
+#rescaling births
+BIRTH$gestation_days<-BIRTH$gestation*7
+head(BIRTH$bwt,n=10)
+head(BIRTH$bwt_pnds,n=10)
+head(BIRTH$gestation,n=10)
+head(BIRTH$gestation_days,n=10)
+```
+
+```{r}
+#she ran a lm with only birth weight pounds
+m_ges<-lm(BIRTH$bwt_pnds~BIRTH$gestation)
+m_last_preg<-lm(BIRTH$bwt_pnds~BIRTH$last_preg)
+m_bmi<-lm(BIRTH$bwt_pnds~BIRTH$bmi)
+m_pre_wgt<-lm(BIRTH$bwt_pnds~BIRTH$pre_wgt)
+m_del_wgt<-lm(BIRTH$bwt_pnds~BIRTH$del_wgt)
+m_wtgain<-lm(BIRTH$bwt_pnds~BIRTH$wtgain)
+m_bwt<-lm(BIRTH$bwt_pnds~BIRTH$bwt)
+m_ges_res <- resid(m_ges)
+m_last_preg_res <- resid(m_last_preg)
+m_bmi_res<-resid(m_bmi)
+m_pre_wgt_res<-resid(m_pre_wgt)
+m_del_wgt_res<-resid(m_del_wgt)
+m_wtgain_res<-resid(m_wtgain)
+m_bwt_res<-resid(m_bwt)
+qqnorm(m_ges_res)
+qqline(m_ges_res)
+qqnorm(m_last_preg_res)
+qqline(m_last_preg_res)
+qqnorm(m_bmi_res)
+qqline(m_bmi_res)
+qqnorm(m_pre_wgt_res)
+qqline(m_pre_wgt_res)
+qqnorm(m_del_wgt_res)
+qqline(m_del_wgt_res)
+qqnorm(m_wtgain_res)
+qqline(m_wtgain_res)
+qqnorm(m_bwt_res)
+qqline(m_bwt_res)
+
+```
+
+OK the m_bwt_res\<-resid(m_bwt) model which is birth weight in pounds
+regressed on birth weight in ounces shows a lot of skew. This is funny.
+Is same as y=Constant\*y. What is this regression? This matches the
+gestation is the first one, seems the residuals are normal in this
+predictor.
+
+Run a regression with 1 predictor. Correlation and cov test
+
+```{r}
+cor(BIRTH$bwt_pnds, BIRTH$gestation)
+cov(BIRTH$bwt_pnds, BIRTH$gestation)
+```
+
+What is the difference between the correlation and covariance?
+Correlation close to 1 or -1 means highly correlated and a 0 means not
+correlated. Looks like halfway so correlated
+
+```{r}
+#these are the same variable. 
+cor(BIRTH$bwt, BIRTH$bwt_pnds)
+cov(BIRTH$bwt, BIRTH$bwt_pnds)
+```
+
+```{r}
+
+corr_data<-BIRTH %>%
+  select(gestation,last_preg, bmi, pre_wgt, del_wgt, wtgain, bwt, bwt_pnds)
+cor(corr_data)
+```
+
+When you see a 1.00000 or high value off the diagonal. .93 is high!!!
+del_wgt and pre_wgt same. pre_wgt and bmi same Those 3 closely
+correlated. Gestattion not related to those 3. wt_gain also good like
+gestation. bwt and bwt_pnds same. Go back and look at residuals of
+wt_gain. wg_gain has bad residuals. Funny.
+
+Covariance? Very large, not bounded. Hard to tell what is large and not.
+
+The correlation doesnt really tell you anything. Not a 1 strongly
+correlated and not a 0 not corrrelated. Same with covariance, will be
+smaller or bigger if we change the units. cov dependent on magnitude of
+units
+
+```{r}
+plot(BIRTH$gestation,BIRTH$bwt_pnds,type="p",ylab="Birth Weight in Pounds",xlab="Gestation in Weeks")
+m_bwt_pnds_ges <-lm(BIRTH$bwt_pnds ~ BIRTH$gestation)
+abline(m_bwt_pnds_ges)
+```
+
+We have some outliers which look funny. We have a workflow to identify
+these. IS corr independent of units? We can verify after scaling and
+centering!
+
+```{r}
+#regression diagnostics
+#VIF for multicollineary only makes sense with multiple predictors
+res_m_bwt_pnds_ges<-resid(m_bwt_pnds_ges)
+qqnorm(res_m_bwt_pnds_ges)
+qqline(res_m_bwt_pnds_ges)
+skewness(res_m_bwt_pnds_ges)
+kurtosis(res_m_bwt_pnds_ges)
+jarque.test(res_m_bwt_pnds_ges)
+shapiro.test(res_m_bwt_pnds_ges)
+```
+
+```{r}
+spreadLevelPlot(m_bwt_pnds_ges)
+
+```
+
+```{r}
+ncvTest(m_bwt_pnds_ges)
+```
+
+```{r}
+outlierTest(m_bwt_pnds_ges)
+```
+
+```{r}
+plotdb<-dfbetaPlots(m_bwt_pnds_ges, id.n=6)
+```
+
+We see 4,45, 1195 returned as top 3 or topN as top outliers
+
+```{r}
+influencePlot(m_bwt_pnds_ges)
+```
+
+```{r}
+#this shouldnt be different from above! 
+plot(BIRTH$gestation_days,BIRTH$bwt,type="p",ylab="Birth Weight in Ounces",xlab="Gestation in Days")
+abline(lm(BIRTH$bwt ~ BIRTH$gestation_days))
+```
+
+```{r}
+model5<-lm(bwt_pnds~gestation,data=BIRTH)
+summary(model5)
+```
+
+```{r}
+model6<-lm(bwt~gestation_days,data=BIRTH)
+summary(model6)
+```
+
+```{r}
+NLSY<-nlsy
+model7<-lm(PCS2000~CESD2000Total+Education2000+NumberBioStepAdoptChildHH2000+MCS2000,data=NLSY)
+model7.1<-lm.beta(model7)
+summary(model7.1)
+
+```
+
+```{r}
+#missing sqrt term had to fix
+BIRTH$ln_last_preg<-log(BIRTH$last_preg)
+BIRTH$inv_last_preg<-1/(BIRTH$last_preg)
+BIRTH$sqrt_last_preg<-sqrt(BIRTH$last_preg)
+BIRTH$ln_pre_wgt<-log(BIRTH$pre_wgt)
+head(BIRTH$last_preg,n=10)
+head(BIRTH$ln_last_pre,n=10)
+head(BIRTH$inv_last_preg,n=10)
+head(BIRTH$sqrt_last_preg,n=10)
+head(BIRTH$ln_pre_wgt,n=10)
+
+```
+
+```{r}
+plot(BIRTH$mage,BIRTH$last_preg,type="p",ylab="last_preg",xlab="Mother's Age")
+abline(lm(BIRTH$last_preg ~ BIRTH$mage))
+
+plot(BIRTH$mage,BIRTH$sqrt_last_preg,type="p",ylab="sqrt_last_preg",xlab="Mother's Age")
+abline(lm(BIRTH$sqrt_last_preg ~ BIRTH$mage))
+
+plot(BIRTH$mage,BIRTH$ln_last_preg,type="p",ylab="ln_last_preg",xlab="Mother's Age")
+abline(lm(BIRTH$ln_last_preg ~ BIRTH$mage))
+
+##histograms of untransformed, square root, and natural log of months since last pregnancy
+hist(BIRTH$last_preg)
+hist(BIRTH$sqrt_last_preg)
+hist(BIRTH$ln_last_preg)
+
+```
+
+```{r}
+##Square Root transformation on Y
+model8<-lm(sqrt_last_preg~mage+pre_wgt,data=BIRTH)
+summary(model8)
+
+##Natural log transformation on Y
+model9<-lm(ln_last_preg~mage+pre_wgt,data=BIRTH)
+summary(model9)
+
+##Natural log transformation on X
+model10<-lm(last_preg~mage+ln_pre_wgt,data=BIRTH)
+summary(model10)
+
+plot(BIRTH$ln_pre_wgt,BIRTH$last_preg,type="p",ylab="Months Since Last Pregnancy",xlab="ln_pre_wgt")
+abline(lm(BIRTH$last_preg ~ BIRTH$ln_pre_wgt))
+
+##Natural log transformation on both Y and X
+model11<-lm(ln_last_preg~mage+ln_pre_wgt,data=BIRTH)
+summary(model11)
+
+plot(BIRTH$ln_pre_wgt,BIRTH$ln_last_preg,type="p",ylab="ln_last_preg",xlab="ln_pre_wgt")
+abline(lm(BIRTH$ln_last_preg ~ BIRTH$ln_pre_wgt))
+
+
+```

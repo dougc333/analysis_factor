@@ -1,0 +1,3 @@
+"0","rat_pup$sex1[sex == ""Female""] <- 1"
+"0","rat_pup$sex1[sex == ""Male""] <- 0"
+"0","rat_pup"

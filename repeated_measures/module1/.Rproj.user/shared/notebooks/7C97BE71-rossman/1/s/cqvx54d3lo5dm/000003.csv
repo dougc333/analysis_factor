@@ -1,0 +1,4 @@
+"0","```r
+#how many stores? 
+unique(train[\"Store\"])
+```"

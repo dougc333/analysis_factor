@@ -1,0 +1,93 @@
+---
+title: "R Notebook"
+output: dummy variables
+link:https://www.youtube.com/watch?v=mzAFM8ZzMX8&t=1279s
+  
+---
+```{r}
+install.packages("emmeans")
+install.packages("car")
+install.packages("ggplot2")
+install.packages("pacman")
+pacman::p_load(emmeans,car, ggplot2)
+```
+
+
+Load Data
+```{r}
+NLSY<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/NLSY.csv")
+WITNESS<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/WITNESS.csv")
+head(NLSY)
+colnames(NLSY)
+```
+
+```{r}
+NLSY$PovertyD <-NA
+NLSY$PovertyE <-NA
+NLSY$PovertyStatus2000c2[NLSY$PovertyStatus2000c2==1]<-NA
+NLSY$PovertyD[NLSY$PovertyStatus2000c2==2]<-1
+NLSY$PovertyE[NLSY$PovertyStatus2000c2==2]<-1
+NLSY$PovertyD[NLSY$PovertyStatus2000c2==3]<- 0
+NLSY$PovertyE[NLSY$PovertyStatus2000c2==3]<- -1
+
+```
+```{r}
+NLSY$MCSCen<-NLSY$MCS2000 - mean(NLSY$MCS2000,na.rm=TRUE)
+NLSY$CESDCen<- NLSY$CESD2000Total - mean(NLSY$CESD2000Total,na.rm=TRUE)
+NLSY$CESD13_5<- NLSY$CESD2000Total - 13.5
+```
+```{r}
+#plot effect coded
+plot(NLSY$PovertyE, NLSY$PCS2000, type="p",ylab="PCS2000", xlab="Poverty Effect Coding")
+abline(lm(NLSY$PCS2000~NLSY$PovertyE))
+abline(v=0)
+```
+
+
+```{r}
+
+#plot dummy coded
+plot(NLSY$PovertyD, NLSY$PCS2000, type="p",ylab="PCS2000", xlab="Poverty Dummy Coding")
+abline(lm(NLSY$PCS2000~NLSY$PovertyD))
+abline(v=0)
+```
+
+```{r}
+#dummy coding binary categorical predictors
+NLSY<-read.csv("/Users/dc/test_stuff/analysis_factor/datasets_irc_workshop/NLSY.csv")
+NLSY$PovertyStatus2000c2 <- as.factor(NLSY$PovertyStatus2000c2)
+levels(NLSY$PovertyStatus2000c2)
+NLSY$PovertyStatus2000c2 <-relevel(NLSY$PovertyStatus2000c2,"3")
+levels(NLSY$PovertyStatus2000c2)
+```
+
+```{r}
+library(car)
+library(emmeans)
+model1<-lm(NLSY$PCS2000~NLSY$PovertyStatus2000c2)
+Anova(model1)
+summary(model1)
+model1.means<-emmeans(model1,~PovertyStatus2000c2)
+model1.means
+pairs(model1.means)
+```
+```{r}
+#add depression as numerical predictor
+model2<-lm(PCS2000~PovertyStatus2000c2+CESDCen, data=NLSY)
+Anova(model2)
+summary(model2)
+```
+
+
+
+```{r}
+female=c(34,41,47,52,55,61,68,71,77,86)
+male=c(51,61,68,72,77,81,87,93,98,100)
+mean(female)
+mean(male)
+```
+
+```{r}
+NLSY$PovertyStatus2000c2
+```
+

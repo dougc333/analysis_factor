@@ -1,0 +1,1 @@
+"0","plot(nlsy$WorkTimeHrsperWkPastCalYr2000cat4, nlsy$PCS2000)"

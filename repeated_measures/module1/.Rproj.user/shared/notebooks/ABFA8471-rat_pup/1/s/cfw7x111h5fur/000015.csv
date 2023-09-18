@@ -1,0 +1,8 @@
+"0",""
+"0","model3.3.ml.fit <- lme(weight ~ treatment + sex1 + litsize,"
+"0","                         random = ~1 | litter, rat_pup, method = ""ML"","
+"0","                         weights = varIdent(form = ~1 | trtgrp))"
+"0",""
+"0","model3.3a.ml.fit <- lme(weight ~ sex1 + litsize,"
+"0","                          random = ~1 | litter, rat_pup, method = ""ML"","
+"0","                          weights = varIdent(form = ~1 | trtgrp))"

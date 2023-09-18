@@ -1,0 +1,3 @@
+"0","fm1 <- lme(distance ~ age, Orthodont, random = ~ age | Subject)"
+"0","# standardized residuals versus fitted values by gender"
+"0","plot(fm1, resid(., type = ""p"") ~ fitted(.) | Sex, abline = 0)"

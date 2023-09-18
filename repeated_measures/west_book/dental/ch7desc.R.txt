@@ -1,0 +1,28 @@
+# Chapter 7 Descriptive Syntax in R.
+
+# Read in Dental Veneer Data and attach to working memory.
+veneer <- read.delim("veneer.dat.txt", h = T)
+
+
+# Define age, time and tooth factors. 
+age.f <- factor(veneer$age)
+time.f <- factor(veneer$time)
+tooth.f <- ordered(veneer$tooth)
+
+ 
+veneerf <- data.frame(veneer,age.f, time.f, tooth.f)
+
+# Sort the age factor in ascending order. 
+# sort(age.f)
+
+library(lattice)  # Load the library for trellis graphics.
+trellis.device(color=F) # Make sure color is turned off.
+ 
+# Load the nlme library, which is required for the 
+# plots below as well as for subsequent models.
+library(nlme)
+ 
+veneer.g1 <- groupedData(gcf ~ time | tooth.f, outer = ~ age.f, data = veneerf)
+
+plot(veneer.g1, display = "tooth", outer = TRUE, aspect = 2, key = F, xlab = "time", ylab = "GCF", main="age" ,
+layout=c(4,3)) 
