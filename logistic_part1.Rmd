@@ -1,0 +1,41 @@
+---
+title: "Interactions"
+output: html_notebook
+video: https://programs.theanalysisfactor.com/statistically-speaking/trainings/interactions-poisson-and-logistic-regression/
+---
+
+```{r}
+setwd("/Users/dc/analysis_factor/") 
+person<-read.csv("/Users/dc/Downloads/AHS2021MetropolitanPUFv1.0CSV/person.csv")
+colnames(person)
+person[,c("AGE")]
+```
+
+```{r}
+options(max.print = 10000)
+household<-read.csv("/Users/dc/Downloads/AHS2021MetropolitanPUFv1.0CSV/household.csv")
+#colnames(household)
+household[,c("TENURE")]
+
+```
+
+```{r}
+project<-read.csv("/Users/dc/Downloads/AHS2021MetropolitanPUFv1.0CSV/project.csv")
+colnames(project)
+```
+
+```{r}
+mortgage<-read.csv("/Users/dc/Downloads/AHS2021MetropolitanPUFv1.0CSV/mortgage.csv")
+colnames(mortgage)
+mortgage[,c("TAXPMT", "PMTONLY", "PMTAMT")]
+```
+
+```{r}
+options(max.print = 10000)
+ahs2021m<-read.csv("/Users/dc/Downloads/ahs2021m.csv")
+#colnames(ahs2021m)
+#,"AGE",,"AMI" these are undefined
+head(ahs2021m,1000)[c("CONTROL","RENT","TOTHCAMT","TENURE","HHAGE","UTILAMT")]
+#verify -6 is owner
+#how to variable code? Forgot. 
+```
