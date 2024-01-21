@@ -15,7 +15,7 @@ person[,c("AGE")]
 options(max.print = 10000)
 household<-read.csv("/Users/dc/Downloads/AHS2021MetropolitanPUFv1.0CSV/household.csv")
 #colnames(household)
-household[,c("TENURE")]
+#household[,c("TENURE")]
 
 ```
 
