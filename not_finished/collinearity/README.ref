@@ -1,3 +1,11 @@
+#Collinearity#
+This is one of the big differences between deep learning and effect size analysis. We are limited
+to how many predictor or dependent variables in our effect size models. If we blindly add all our 
+input variables then we end up with bias and collinearity disturbances. 
+
+In DL we feed all of our inputs into a Neural Net and train with Back Prop. Regularizaion doesn't 
+account for random variation and the neural net coefficients don't represent effect sizes. 
+
 example of why including all Xn into regression equation is a bad idea
 https://www.youtube.com/watch?v=PXsRw61Jwag
 

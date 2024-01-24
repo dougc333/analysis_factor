@@ -1,3 +1,10 @@
+Inference and p-values and Statistial Significance
+Confidence Intervals
+An Overview of Effect Size statistics and WHy they are so important
+Power Analysis and Sample Size determination using Simulaiton
+
+
+
 
 Effect size. 
 You can have 2 drugs which have significant p values but dont kmow how to
