@@ -5,3 +5,7 @@ comes from projects with Analysis Factor. The models aren't plug and play like w
 or R packages.
 
 Effect Sizes:
+
+###Power Analysis using Simulation###
+/analysis_factor/stage3 with pdf and R code
+
