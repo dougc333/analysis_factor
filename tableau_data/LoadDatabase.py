@@ -35,10 +35,12 @@ class LoadDatabase:
     cursor = conn.cursor()
     result = cursor.execute("""SELECT index, "Row ID", "Order ID", "Order Date", "Ship Date", "Ship Mode", "Customer ID", "Customer Name", "Segment", "Country", "City", "State", "Postal Code", "Region", "Product ID", "Category", "Sub-Category", "Product Name", "Sales", "Quantity", "Discount", "Profit"
 	FROM public."Orders";""")
+    # for record in cursor:
+    #   print(record)
+    sum14 = cursor.execute("""SELECT  "Order Date",  "Profit"
+	FROM public."Orders" """)
     for record in cursor:
       print(record)
-    sum14 = cursor.execute("""SELECT index, "Row ID", "Order ID", "Order Date", "Ship Date", "Ship Mode", "Customer ID", "Customer Name", "Segment", "Country", "City", "State", "Postal Code", "Region", "Product ID", "Category", "Sub-Category", "Product Name", "Sales", "Quantity", "Discount", "Profit"
-	FROM public."Orders" where "Order Date" """)
     cursor.close()
     conn.close()
     
