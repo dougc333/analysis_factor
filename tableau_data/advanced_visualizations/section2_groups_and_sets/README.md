@@ -5,3 +5,8 @@ docker container logs
 
 
 
+tableau_advanced_vis pages is udemy 
+tableau_training is tableau company site
+
+
+
