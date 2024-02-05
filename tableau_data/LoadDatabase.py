@@ -5,26 +5,31 @@ import pandas as pd
 from sqlalchemy import create_engine
 
 class LoadDatabase:
-  def __init__(self):
-    """"""
+  def __init__(self,csv_files, tables):
+    self.csv_files = csv_files
+    self.table_names = tables
     #self.LoadTables()
   
   def LoadTables(self):
     engine = create_engine('postgresql+psycopg2://postgres:asdf@localhost:5432/TestDatabase')
     print(engine)
-    df1 = pd.read_csv(('/Users/dc/analysis_factor/tableau_data_superstore/sample_-_superstoreutf8/Orders-Table.csv'),encoding = "ISO-8859-1")
-    df2 = pd.read_csv(('/Users/dc/analysis_factor/tableau_data_superstore/sample_-_superstoreutf8/People-Table.csv'),encoding = "ISO-8859-1")
-    df3 = pd.read_csv(('/Users/dc/analysis_factor/tableau_data_superstore/sample_-_superstoreutf8/Returns-Table.csv'),encoding = "ISO-8859-1")
+    data_frames = []
+    for x in csv_files:
+      data_frames.append(pd.read_csv(x,encoding = "ISO-8859-1"))
+      #df2 = pd.read_csv((),encoding = "ISO-8859-1")
+      #df3 = pd.read_csv((),encoding = "ISO-8859-1")
     
     #print(df)
-    dfsql1 = df1.to_sql('Orders', engine)
-    dfsql2 = df2.to_sql('People', engine)
-    dfsql3 = df3.to_sql('Return', engine)
-    print("numRows table Orders:",dfsql1)
-    print("-------")
-    print("numRows table People:",dfsql2)
-    print("numRows table Return:","-------")
-    print(dfsql3)
+    for idx,df in enumerate(data_frames):
+      dfsql = df.to_sql(self.table_names[idx], engine)
+      print(f"numRows {table_names[idx]}: {dfsql}")
+    #dfsql2 = df2.to_sql('People', engine)
+    #dfsql3 = df3.to_sql('Return', engine)
+   
+    # print("-------")
+    # print("numRows table People:",dfsql2)
+    # print("numRows table Return:","-------")
+    # print(dfsql3)
     
   def barcharts(self):
     conn = psycopg2.connect(database="TestDatabase",
@@ -44,5 +49,11 @@ class LoadDatabase:
     cursor.close()
     conn.close()
     
-ld = LoadDatabase()
-ld.barcharts()
+# files=['/Users/dc/analysis_factor/tableau_data_superstore/sample_-_superstoreutf8/Orders-Table.csv',
+#        '/Users/dc/analysis_factor/tableau_data_superstore/sample_-_superstoreutf8/People-Table.csv',
+#        '/Users/dc/analysis_factor/tableau_data_superstore/sample_-_superstoreutf8/Returns-Table.csv'
+#       ]
+files=['/Users/dc/rossman_data/store.csv', '/Users/dc/rossman_data/train.csv']
+table_names = ['Store,','train']
+ld = LoadDatabase(files, tablenames)
+# ld.barcharts()
