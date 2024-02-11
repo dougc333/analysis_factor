@@ -7,7 +7,7 @@ from sqlalchemy import create_engine
 class LoadDatabase:
   def __init__(self,csv_files, tables):
     self.csv_files = csv_files
-    self.table_names = tables
+    self.table_names = tablesn
     #self.LoadTables()
   
   def LoadTables(self):
