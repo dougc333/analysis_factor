@@ -1,8 +1,13 @@
 Country,num
+ United States,112515
 United Kingdom,3588
+,130617
 Australia,943
+ Cambodia,3
 United States,42575
 Ireland,135
+ United Kingdom,831
+ Canada,1896
 New Zealand,178
 Canada,2415
 Puerto Rico,41
@@ -10,53 +15,99 @@ Germany,52
 Philippines,475
 Luxembourg,3
 Norway,25
+ Jamaica,30
 Sweden,35
 Venezuela,14
 Brazil,50
 Netherlands,94
+ China,33
+ Honduras,5
 Iceland,12
+ Australia,166
+ Sweden,7
 Greece,85
+ Panama,3
 Singapore,324
+ Portugal,29
 Hong Kong,53
 Israel,30
+ Belgium,167
 Brunei,7
 Malaysia,318
+ India,227
+ Trinidad and Tobago,19
+ Pakistan,27
 Thailand,41
 Jordan,8
+ Italy,24
 Switzerland,22
+ Israel,23
 Finland,19
 United Arab Emirates,29
 Nigeria,45
 Saint Vincent and the Grenadines,4
 Liechtenstein,1
 Slovenia,20
+ Philippines,269
 Argentina,32
+ Thailand,43
 India,187
 Colombia,25
+ Germany,22
 Denmark,15
 Portugal,67
+ Lebanon,11
+ Mexico,75
 Indonesia,123
+ Japan,23
+ Puerto Rico,33
+ Greece,11
 Austria,8
 South Africa,61
 Mexico,78
 Saudi Arabia,26
+ Hong Kong,6
+ Netherlands,25
+ Jordan,10
 Japan,20
+ Cyprus,6
+ Hungary,8
+ Russia,7
 Bahrain,5
+ Brazil,27
 China,31
+ Norway,7
+ Saudi Arabia,16
 Kenya,20
+ Argentina,18
+ Kyrgyzstan,1
+ Ireland,29
+ Chile,6
+ Malaysia,207
 San Marino,1
 Afghanistan,7
+ Peru,30
 Cyprus,3
 Morocco,5
 Spain,36
+ Finland,5
 Slovakia,1
+ France,22
 Bermuda,4
 Belgium,33
+ Saint Lucia,1
 Georgia,28
+ New Zealand,22
+ Saint Vincent and the Grenadines,1
+ Guinea-Bissau,2
 Kuwait,20
 Qatar,8
+ Colombia,20
+ Switzerland,16
 Peru,22
 Uruguay,8
+ Bulgaria,4
+ Egypt,16
 Laos,2
 Hungary,14
 France,61
@@ -66,99 +117,194 @@ Namibia,26
 Russia,1
 Bahamas,2
 Dominican Republic,18
+ Tunisia,2
+ Vietnam,19
+ Nigeria,64
+ Denmark,8
+ Spain,28
+ Singapore,38
+ Grenada,2
+ Barbados,4
+ South Africa,15
+ Ghana,14
 Lebanon,5
+ Ecuador,6
+ Sri Lanka,15
+ Venezuela,19
 Turkey,9
 Italy,39
+ South Korea,8
+ Indonesia,42
 Zimbabwe,8
 Jamaica,18
 Chile,4
 Guatemala,4
+ Slovenia,5
 Poland,4
 Cape Verde,1
+ Costa Rica,17
+ Cayman Islands,1
 Malta,15
+ Czech Republic,6
 El Salvador,8
+ Central African Republic,1
 Monaco,3
+ Kenya,27
 Panama,14
 Ecuador,9
 Papua New Guinea,2
+ Romania,82
 Romania,39
 Bulgaria,5
+ Poland,2
+ Uruguay,6
 Svalbard and Jan Mayen,2
 Netherlands Antilles,6
+ Iran,5
 Barbados,5
+ Guyana,4
+ Taiwan,7
+ Papua New Guinea,3
 British Virgin Islands,4
 United States Minor Outlying Islands,3
 Ghana,25
 Sudan,2
 Pakistan,18
+ Yemen,1
 Trinidad and Tobago,20
 Iran,3
+ Kuwait,3
 Macedonia,8
 South Korea,9
+ Uganda,9
+ Channel Islands,2
+ Turkey,7
+ Bahamas,8
 Malawi,5
+ Luxembourg,2
 Djibouti,2
+ Bosnia and Herzegovina,2
 Zambia,4
+ United Arab Emirates,17
 Mongolia,3
+ Morocco,2
+ Micronesia,1
 Mozambique,3
+ Netherlands Antilles,5
 Ethiopia,3
+ Nepal,7
+ Albania,9
 Vietnam,7
+ Ethiopia,4
 Costa Rica,12
 Democratic Republic of the Congo,2
 Fiji,4
 Gibraltar,1
+ Belize,2
 Armenia,1
 Sri Lanka,7
+ Bangladesh,8
+ Macedonia,5
 Uganda,9
+ Cuba,3
 Honduras,6
 Estonia,3
 Oman,7
 Croatia,2
+ Saint Kitts and Nevis,2
 Aruba,2
 Angola,2
 Cuba,3
 Rwanda,2
 Bosnia and Herzegovina,1
 Botswana,4
+ Georgia,1
+ Mauritius,2
 Czech Republic,3
 Nepal,6
+ Slovakia,1
+ Seychelles,3
+ Bahrain,3
 Kiribati,1
+ Dominican Republic,1
+ Mali,2
+ Serbia,2
 Iraq,3
+ Austria,7
+ Cameroon,4
 Isle of Man,1
+ Bermuda,1
+ Tanzania,6
 Antigua and Barbuda,1
+ Bhutan,2
+ Afghanistan,3
 Tokelau,1
 Myanmar,3
+ Cocos Islands,1
 Solomon Islands,1
 Reunion,1
+ Mongolia,1
 Antarctica,3
 Haiti,1
+ Zambia,3
+ Malawi,1
 Grenada,2
 Algeria,2
 Cambodia,2
+ Fiji,4
+ Zimbabwe,2
 U.S. Virgin Islands,1
 Cameroon,3
 Nicaragua,1
 Yemen,3
 Lesotho,1
 Tanzania,4
+ Haiti,3
+ Iraq,4
+ Ukraine,1
+ Sudan,1
+ Myanmar,1
+ Lithuania,1
+ Angola,2
+ Qatar,2
 Faroe Islands,1
 Sierra Leone,2
+ Mozambique,2
 American Samoa,1
+ Suriname,1
+ British Virgin Islands,1
 Mauritius,1
+ Nicaragua,2
+ Algeria,2
 Bolivia,3
 Kazakhstan,1
 Guam,3
+ Rwanda,2
 Serbia,4
 Somalia,1
+ Malta,1
+ Ivory Coast,1
+ Brunei,2
+ Estonia,2
 Anguilla,1
 Bangladesh,2
+ Maldives,1
 Tajikistan,1
 Saint Lucia,1
 Lithuania,2
+ Bolivia,1
+ Guatemala,1
+ El Salvador,1
 Mali,1
 Tuvalu,2
 British Indian Ocean Territory,1
 Syria,1
 Belize,1
 Sao Tome and Principe,1
+ Croatia,1
+ Gambia,1
+ Somalia,1
 Albania,1
+ Gabon,1
+ Aruba,1
 Heard Island and McDonald Islands,1
