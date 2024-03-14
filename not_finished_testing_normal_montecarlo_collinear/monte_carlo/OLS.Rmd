@@ -1,0 +1,49 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(pacman)
+pacman::p_load(data.table, fixest,stargazer, dplyr, magrittr)
+```
+
+
+
+Model:
+$$
+Y=\beta_0 + \beta_1X_1
+$$
+
+```{r}
+beta_0 = 1.5
+beta_1 = 2.0
+
+set.seed(42)
+n=100
+M=500
+
+slope_DT <-rep(0,M)
+intercept_DT <-rep(0,M)
+
+for (i in 1:M){
+  U_i = rnorm(n, mean=0, sd=2)
+  X_i = rnorm(n, mean=5, sd=5)
+  Y_i = beta_0 + beta_1*X_i + U_i
+  
+  data_i <- data.table(Y=Y_i, X=X_i)
+  
+  ols_i <- fixest::feols(data = data_i, Y~X)
+  
+  slope_DT[i] <- ols_i$coefficients[2]
+  intercept_DT[i] <- ols_i$coefficients[1]
+  
+}
+
+estimates_DT <- data.table(beta_1 = slope_DT, beta_0 = intercept_DT)
+stargazer(estimates_DT[, c("beta_1", "beta_0")],type="text")
+hist(estimates_DT[, beta_1],xlim=c(1.5,2.5))
+
+```
+HOw to save etable(ols_i) results in table? 
+

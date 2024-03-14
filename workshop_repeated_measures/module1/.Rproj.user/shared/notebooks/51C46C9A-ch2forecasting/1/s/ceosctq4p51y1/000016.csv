@@ -1,0 +1,2 @@
+"0","autoplot(train_data.ts )+ ggtitle(""Sales"")"
+"0",""

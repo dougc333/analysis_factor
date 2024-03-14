@@ -1,4 +1,0 @@
-"0",""
-"0","# Generate Figure 3.6 "
-"0"," "
-"0","plot(model3.3.reml.fit, resid(.) ~ fitted(.) | factor(trtgrp), layout=c(2,1), aspect=2, abline=0)"

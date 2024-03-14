@@ -1,4 +1,0 @@
-"0","t <-rstandard(fm1Rail.lm)"
-"0","qqplot(t,ylab=""Standardized Residuals"", xlab=""rail"")"
-"2","Error in sort(y) : argument ""y"" is missing, with no default
-"

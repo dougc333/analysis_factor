@@ -1,0 +1,31 @@
+Source
+Dissertation research of Katrin Mueller-Johnson in Cornell Department of Human Development.
+
+Description
+The researcher conducted an experiment with 220 college students to determine how characteristics of the witness and the observer affected observers’ perceptions of elderly witnesses in a fictitious trial.
+
+The witness was said to have seen a car accident in which a child was hit by a car.  The eyewitness testimony was crucial to determine whether the child fell and hit his head because he was struck by the car or whether the child fell on ice and hit his head in front of the car before being struck.  The details of this testimony were crucial for determining if the defendant was criminally responsible of involuntary manslaughter.
+
+Each participant read a transcript of the testimony and was told the witness was one of four ages and either male or female.
+
+Variables
+ID                                         The ID number of each participant
+
+Sex_Witn                            The sex of the witness in the fictitious trial (1 = Male, 2 = Female)
+
+Age_Witn                           The age of the witness in the fictitious trial (49, 69, 79, 89)
+
+Sex_part                             The sex of the participant (1 = Male, 2 = Female)
+
+Accurate                             Perceived accuracy of the witness on a 7 point scale (1=low, 7 = high)
+
+Honest                                Perceived honesty of the witness on a 7 point scale (1 = low, 7 = high)
+
+Memory                              Perceived memory of the witness on a 7 point scale (1 = low, 7 = high)
+
+Cognitiv                              Perceived cognitive ability of the witness (1 = low, 7 = high)
+
+Senior_S                             Amount of time participant spends with seniors at school (10 = highest)
+
+Senior_H                             Amount of time participant spends with senior at home (10 = highest)
+

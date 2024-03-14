@@ -1,0 +1,28 @@
+{
+    "id": "9520E77A",
+    "path": "~/test_stuff/rossman/ch2forecasting.Rmd",
+    "project_path": null,
+    "type": "r_markdown",
+    "hash": "942530807",
+    "contents": "",
+    "dirty": false,
+    "created": 1690224655733.0,
+    "source_on_save": false,
+    "relative_order": 5,
+    "properties": {
+        "tempName": "Untitled1",
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "128,0",
+        "scrollLine": "124",
+        "last_setup_crc32": "10731992c27255e"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1690228085,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1690228088303,
+    "read_only": false,
+    "read_only_alternatives": []
+}

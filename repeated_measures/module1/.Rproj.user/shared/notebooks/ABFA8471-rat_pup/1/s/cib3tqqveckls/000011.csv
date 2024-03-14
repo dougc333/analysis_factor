@@ -1,1 +1,0 @@
-"0","histogram(~res | factor(trtgrp), data=ratred, layout=c(2,1), aspect = 2 , xlab = ""Residual"") "

@@ -1,0 +1,63 @@
+---
+title: "training_module4"
+output: html_document
+date: "2023-05-24"
+---
+
+```{r setup, include=FALSE}
+library(nlme)
+###install.packages("ggplot2")
+library(ggplot2)
+###install.packages("ggthemes")
+library(ggthemes)
+##install.packages("multcomp")
+library(multcomp)
+###install.packages("emmeans")
+library(emmeans)
+###install.packages("car")
+library(car)
+
+```
+
+
+```{r}
+model9<-gls(BMI~as.factor(time)*as.factor(group), method="REML",data=training,
+            correlation=corSymm(form=~1|ID), weights=varIdent(form=~1|as.factor(time)),
+            na.action=na.omit,control=list(apVar=T))
+###Get model summary
+summary(model9)
+###Get variance matrix
+cors<-corMatrix(model9$modelStruct$corStruct)[[1]]
+vars<-c(1.00000,0.9686381)^2*model9$sigma^2
+covs<-outer(vars,vars,function(x,y) sqrt(x)*sqrt(y))
+cors*covs
+
+###Get type III F tests
+anova(model9,type="marginal")
+
+###Get Wald chi-squared tests
+Anova(model9,type=3)
+
+```
+
+
+
+```{r pressure, echo=FALSE}
+model10<-gls(BMI~as.factor(time)*as.factor(group), method="REML",data=training,
+             correlation=corCompSymm(form=~1|ID),
+             na.action=na.omit,control=list(apVar=T))
+###Get model summary
+summary(model10) 
+###Get variance matrix
+getVarCov(model10)
+
+###Plot pre to post for IDs, separately by group
+ggplot(na.exclude(training), aes(x=time, y=BMI, color=factor(ID)))+ geom_point() +
+  geom_line() + theme_few()  + facet_wrap(~group) + guides(color="none") +
+  geom_smooth(method=lm,se=FALSE,color=1,size=1.5)+
+  scale_color_discrete(name="ID")+
+  scale_x_continuous(breaks = seq(1:2),name="Time", labels=c("Pre","Post"))
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

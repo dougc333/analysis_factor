@@ -1,0 +1,50 @@
+# Import SAT score data.
+sat <- read.csv("E:\\LMM Data\\school_data_final.csv", h=T)
+attach(sat)
+
+# Create side-by-side box plots showing distributions of math scores by year.
+plot(math ~ factor(year), xlab = "Year (Centered at Grade 4)",
+       ylab = "SAT Math Score")
+
+# Side-by-side box plots for teachers.
+plot(math ~ factor(tchrid), xlab = "Teacher ID",
+     ylab = "SAT Math Score")
+
+# Side-by-side box plots for students.
+plot(math ~ factor(studid), xlab = "Student ID",
+     ylab = "SAT Math Score")
+
+# Load lme4 library.
+library(lme4)
+
+# Fit Model 8.1.
+model8.1.fit <- lmer(math ~ year + (1|studid) + (1|tchrid), REML = T)
+
+# Evaluate results.
+summary(model8.1.fit)
+confint(model8.1.fit)
+
+# Print EBLUPs.
+ranef(model8.1.fit)
+
+# Plot EBLUPs along with measures of uncertainty.
+library(merTools)
+REsim(model8.1.fit)
+plotREsim(REsim(model8.1.fit))
+
+# Test Hypothesis 8.1.
+model8.1.fit.nostud <- lmer(math ~ year + (1|tchrid), REML = T)
+summary(model8.1.fit.nostud)
+0.5*(1 - pchisq(46,0)) + 0.5*(1 - pchisq(46,1))
+
+# Test Hypothesis 8.2.
+model8.1.fit.notchr <- lmer(math ~ year + (1|studid), REML = T)
+summary(model8.1.fit.notchr)
+0.5*(1 - pchisq(79,0)) + 0.5*(1 - pchisq(79,1))
+
+# Load lmerTest package.
+library(lmerTest)
+
+# Refit Model 8.1.
+model8.1.fit <- lmer(math ~ year + (1|studid) + (1|tchrid), REML = T)
+summary(model8.1.fit)

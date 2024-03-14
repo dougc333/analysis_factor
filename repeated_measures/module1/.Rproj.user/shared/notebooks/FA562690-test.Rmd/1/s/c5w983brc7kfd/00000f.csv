@@ -1,3 +1,0 @@
-"0","selfesteem %>%"
-"0","  group_by(time) %>%"
-"0","  get_summary_stats(score, type = ""mean_sd"")"

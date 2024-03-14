@@ -1,4 +1,0 @@
-"0",""
-"0","# Generate Figure 3.5"
-"0",""
-"0","qqnorm(model3.3.reml.fit, ~resid(.) | factor(trtgrp), layout=c(2,1), aspect = 2, id = 0.05) "

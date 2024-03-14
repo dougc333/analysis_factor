@@ -1,0 +1,51 @@
+# Load lme4 library.
+library(lme4)
+
+# Fit Model 6.1 (see chapter6_R_final.R for code to load the data).
+model6.1.fit.lmer <- lmer(vsae ~ age.2 + I(age.2^2) + sicdegp2.f +
+                            age.2*sicdegp2.f + I(age.2^2)*sicdegp2.f + (age.2 + I(age.2^2) | childid),
+                          REML = T, data = autism.updated)
+
+summary(model6.1.fit.lmer)
+
+# Fit Model 6.2.
+model6.2.fit.lmer <- lmer(vsae ~ age.2 + I(age.2^2) + sicdegp2.f +
+                            age.2*sicdegp2.f + I(age.2^2)*sicdegp2.f +
+                            (age.2 + I(age.2^2) - 1 | childid),
+                          REML = T, data = autism.updated)
+
+summary(model6.2.fit.lmer)
+
+# Fit Model 6.2a.
+model6.2a.fit.lmer <- lmer(vsae ~ age.2 + I(age.2^2) + sicdegp2.f +
+                             age.2*sicdegp2.f + I(age.2^2)*sicdegp2.f +
+                             (age.2 - 1 | childid),
+                           REML = T, data = autism.updated)
+
+# Test Hypothesis 6.1.
+h6.1.pvalue <- 0.5*(1-pchisq(83.9,1)) + 0.5*(1-pchisq(83.9,2))
+h6.1.pvalue
+
+# Test Hypothesis 6.2.
+model6.2.ml.fit.lmer <- lmer(vsae ~ age.2 + I(age.2^2) + sicdegp2.f +
+                               age.2*sicdegp2.f + I(age.2^2)*sicdegp2.f +
+                               (age.2 + I(age.2^2) - 1 | childid),
+                             REML = F, data = autism.updated)
+model6.3.ml.fit.lmer <- lmer(vsae ~ age.2 + I(age.2^2) + sicdegp2.f +
+                               age.2*sicdegp2.f +
+                               (age.2 + I(age.2^2) - 1 | childid),
+                             REML = F, data = autism.updated)
+anova(model6.2.ml.fit.lmer, model6.3.ml.fit.lmer)
+
+# Fit Model 6.3.
+model6.3.fit.lmer <- lmer(vsae ~ age.2 + I(age.2^2) + sicdegp2.f +
+                            age.2*sicdegp2.f + (age.2 + I(age.2^2) - 1 | childid),
+                          REML = T, data = autism.updated)
+
+# View results.
+summary(model6.3.fit.lmer)
+
+# Plot the predicted random effects along with measures of uncertainty.
+library(merTools)
+REsim(model6.3.fit.lmer)
+plotREsim(REsim(model6.3.fit.lmer))

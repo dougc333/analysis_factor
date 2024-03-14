@@ -1,0 +1,7 @@
+"0","setwd(""/Users/dc/test_stuff/repeated_measures/data"")"
+"2","Warning: The working directory was changed to /Users/dc/test_stuff/repeated_measures/data inside a notebook chunk. The working directory will be reset when the chunk is finished running. Use the knitr root.dir option in the setup chunk to change the working directory for notebook chunks."
+"0","###We will need the teachers data set, the training data set, and the swallowing data set"
+"0","###Long versions created in previous modules"
+"0","teachers<-read.csv(""longteachers.csv"",header=T)"
+"0","training<-read.csv(""longtraining.csv"",header=T)"
+"0","swallowing<-read.csv(""Swallowing.csv"",header=T)"

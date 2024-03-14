@@ -1,0 +1,4 @@
+"0","t <-rstandard(fm1Rail.lm)"
+"0","qqplot(t.stdres)"
+"2","Error in sort(x) : object 't.stdres' not found
+"

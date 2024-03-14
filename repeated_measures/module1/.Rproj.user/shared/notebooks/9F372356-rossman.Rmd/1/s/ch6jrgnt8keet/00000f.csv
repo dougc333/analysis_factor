@@ -1,7 +1,0 @@
-"0","data(""Rail"")"
-"0","plot(data(""Rail""))"
-"2","Warning: NAs introduced by coercion"
-"2","Warning: no non-missing arguments to min; returning Inf"
-"2","Warning: no non-missing arguments to max; returning -Inf"
-"2","Error in plot.window(...) : need finite 'ylim' values
-"

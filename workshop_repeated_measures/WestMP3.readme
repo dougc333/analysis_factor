@@ -1,0 +1,26 @@
+LMM for continuous outcom  variables, glmm for binary, ordinal outcome variables
+
+LMM violates assumptions of OLS, it ahs correlated predictor variables. A repeated measure is one type of correlated predictor variable. A constant variance? A nonnormal residual from repeated measures. (Exercise show this in graph form)
+Show clustered data from scatterplot violating OLS in the interaction UI
+
+
+LMM/GLMM: fixed and random effects
+fixed effects: unknown fixed regression paramaters
+random effects: random variables allow unique clusters of subjects like in longitudinal styd to have randomly varying coefficients in Regression model!!!! beta is now random!!!!!!! Not a constant. 
+
+Random effects assume to have normal distribution. 
+
+the output of a LMM are intercepts, coefficients and variances on the intercept adn coefficients. Perform inferences using these. If this doesnt matter then should pick another method. Generalized estimating equaitons or marginal modeling. These are other ways to make sure standard errors reflect the correlations in the data. 
+
+
+LMM assumes you have specific interest in the intercepts and coefficents and making inference from them. 
+
+constant variance in groups? different group ahve different residuals and LMM fits thsi better
+
+confused what marginal effects are and how to use them
+
+magrinal https://vincentarelbundock.github.io/marginaleffects/
+
+
+
+

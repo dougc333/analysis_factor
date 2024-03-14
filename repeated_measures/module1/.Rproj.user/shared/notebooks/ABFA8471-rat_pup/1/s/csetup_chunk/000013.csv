@@ -1,3 +1,0 @@
-"0","setwd(""/Users/dc/test_stuff/repeated_measures/west_book"")"
-"0","rat_pup<-read.table(""rat_pup/rat_pup.dat"",h=T)"
-"0","rat_pup"

@@ -1,6 +1,0 @@
-probablity rules come up often, focus on IID (my own comment)
-
-These assumptions are often not true. Assuming the event space is represented by all the observations, A is independent of B in Bayes rule. This is often not true in real life or there is no way to know if they are independent. 
-
-
-

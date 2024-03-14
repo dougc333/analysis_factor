@@ -1,3 +1,0 @@
-"0","model3.1.fit <- lme(weight ~ treatment + sex1 + litsize +"
-"0","                          treatment:sex1, random = ~ 1 | litter,"
-"0","                        data = rat_pup, method = ""REML"")"

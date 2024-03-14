@@ -1,0 +1,28 @@
+{
+    "id": "980F15AA",
+    "path": null,
+    "project_path": null,
+    "type": "object_explorer",
+    "hash": "0",
+    "contents": "",
+    "dirty": false,
+    "created": 1690138503358.0,
+    "source_on_save": false,
+    "relative_order": 6,
+    "properties": {
+        "id": "e3406c72cb984e41b763d23cbf29fd55",
+        "name": "model3.3.ml.fit",
+        "title": "model3.3.ml.fit",
+        "language": "R",
+        "source_window_id": "",
+        "Source": "Source"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 6167852192,
+    "encoding": "",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1690138503358,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -1,0 +1,40 @@
+Source
+Dissertation research of Jennifer Nolan in Cornell Department of Policy Analysis and Management
+
+Description
+The National Longitudinal Study of Youth (79) is a nationally representative sample of 12,686 young men and women who were 14-22 years old when they were first surveyed in 1979. These individuals were interviewed annually through 1994 and are currently interviewed on a biennial basis.
+
+For more information, see http://www.bls.gov/nls/y79summary.htm.
+
+Research Questions
+Does religiosity, as measured by religious attendance, affect physical and mental health, as measured by PCS and CES-D, controlling for education and number of children in the household.
+
+Although this is a longitudinal data set, this study used only the 2000 data.
+
+                                   
+
+Values of Categorical Variables
+Variable	Label	Value	Label
+
+PCS2000	Physical Health Composite Score		
+
+CESD2000Total	Depression Score – 0-21 Center for Epi Study		
+
+MCS2000	Mental Health Composite Score		
+
+Marital2000c5	Marital Status 2000 5 categories	
+1	Widowed
+2	Divorced
+3	Separated
+4	Married
+5	Never Married
+
+Education2000	Years of Education 2000		
+
+NumberBioStepAdoptChildHH2000	Number of Bio/Step/Adopted Children in Household 2000		
+
+PovertyStatus2000c2	Poverty Status 2000 2 cat	1	Missing
+2	Poverty
+3	Not in Poverty
+ 
+

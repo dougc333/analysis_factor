@@ -1,1 +1,0 @@
-"0","bwplot(weight ~ranklit | treatment*sex, data=rat_pup,aspect = 2, ylab=""Birth Weights"", xlab="""" )"

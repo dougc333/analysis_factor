@@ -1,0 +1,16 @@
+# Diagnostics for the final model fitted in Chapter 5, using R
+
+library(lattice)
+trellis.device(color=F)
+
+# Generate Figure 5.3
+
+qqnorm(model5.2.fit, ~resid(.))
+
+# Generate Figure 5.4
+ 
+fit <- predict(model5.2.fit)
+res <- resid(model5.2.fit)
+plotres.fit <- data.frame(rat.brain, fit, res)
+xyplot(res ~ fit, data=plotres.fit, groups=treatment, xlab="Predicted value (+ = Carbachol, o = Basal)", ylab="Residual", abline=0)
+

@@ -1,2 +1,0 @@
-"0","# box-plots of residuals by Subject"
-"0","plot(fm1, Subject ~ resid(.))"
