@@ -1,7 +1,0 @@
-teh txt file is 5GB. at border of being too big to process in memory on single computer. 
-can use a server but that doesnt scale
-1_) map reduce on the text file to split each column into separate text files
-2) combine columns together into dataframe of columns after separate text files
-
-test on small scale first, each column separate csv file
-
