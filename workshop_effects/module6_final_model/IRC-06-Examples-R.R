@@ -4,10 +4,10 @@
 
 ###Change the working directory code to where you have the data saved
 ###Set working directory
-setwd("/Users/dc/analysis_factor")
+setwd("/Users/dc/analysis_factor/workshop_effects")
 
 ###Use read.csv to import the data set
-NLSY<-read.csv("/Users/dc/analysis_factor/datasets_irc_workshop/NLSY.csv",header=T)
+NLSY<-read.csv("/Users/dc/analysis_factor/workshop_effects/datasets_irc_workshop/NLSY.csv",header=T)
 
 ## create new variables and reassign values
 

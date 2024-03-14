@@ -18,8 +18,8 @@ Variable	Label	Value	Label
 R0000100	ID# (1-12686) 79		
 PCS2000	Physical Health Composite Score		
 CESD2000Total	Depression Score – 0-21 Center for Epi Study		
-
-CESDTotal2000cutpt	CESDTotal 2000 cat not depressed (0-5 score) vs depressed (6-21 score)	
+CESDTotal 2000 cat not depressed (0-5 score) vs depressed (6-21 score)	
+CESDTotal2000cutpt	
 1	Depressed
 2	Not Depressed
 
@@ -86,7 +86,8 @@ IncomePercNetFam2000c	Income Total Net Family Percentile Categories 2000
 6	$8,400 to $24,800 (low 20% income)
 7	<=$ 8,304 (lowest 10 % income)
 
-PovertyStatus2000c2	Poverty Status 2000 2 cat	1	Missing
+PovertyStatus2000c2	Poverty Status 2000 2 cat	
+1	Missing
 2	Poverty
 3	Not in Poverty
  
