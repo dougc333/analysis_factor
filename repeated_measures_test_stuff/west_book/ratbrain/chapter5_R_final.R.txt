@@ -1,0 +1,43 @@
+# Read in Rat Brain data.
+rat.brain <- read.table("E:\\LMM Data\\rat_brain.dat", h = T)
+attach(rat.brain)
+
+region.f <- region
+region.f[region == 1] <- 1
+region.f[region == 2] <- 2
+region.f[region == 3] <- 0
+region.f <- factor(region.f)
+treat <- treatment
+treat[treatment == 1] <- 0
+treat[treatment == 2] <- 1
+
+rat.brain <- data.frame(rat.brain, region.f, treat)
+
+# Load nlme package.
+library(nlme)
+
+# Fit Model 5.1.
+model5.1.fit <- lme(activate ~ region.f*treat,
+                        random = ~1 | animal, method = "REML", data = rat.brain)
+
+summary(model5.1.fit)
+anova(model5.1.fit)
+
+# Fit Model 5.2.
+model5.2.fit <- update(model5.1.fit, random = ~ treat | animal)
+
+summary(model5.2.fit)
+anova(model5.2.fit)
+
+0.5*(1 - pchisq(26.1,1)) + 0.5*(1 - pchisq(26.1,2))
+
+# Fit Model 5.3.
+model5.3.fit <- lme(activate ~ region.f*treat,
+                        random = ~ treat | animal,
+                        weights = varIdent(form = ~ 1 | treat),
+                        data = rat.brain)
+
+summary(model5.3.fit)
+
+# Likelihood ratio test for Hypothesis 5.2.
+anova(model5.2.fit, model5.3.fit)

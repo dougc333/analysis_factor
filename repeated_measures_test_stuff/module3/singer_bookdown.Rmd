@@ -1,0 +1,39 @@
+---
+title: "singer_ch2"
+output: html_document
+date: "2023-05-22"
+https://bookdown.org/content/4253/exploring-longitudinal-data-on-change.html
+
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(tidyr)
+library(readr)
+library(dplyr)
+tolerance <- read.table("https://stats.idre.ucla.edu/wp-content/uploads/2016/02/tolerance1.txt", sep=",", header=T)
+print(tolerance)
+```
+
+```{r}
+#the tolerance columns, rows 2-6 are tolerance columns, we want the covariance matrix for tolerance columns
+cor(tolerance[,2:6]) %>% round(digits=2)
+
+```
+
+
+```{reformatted the data from col to rows}
+tolerance.pp <- read.table("https://stats.idre.ucla.edu/wp-content/uploads/2016/02/tolerance1_pp.txt", sep=",", header=T)
+
+attach(tolerance.pp)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r tolerance, echo=FALSE}
+plot(tolerance)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
