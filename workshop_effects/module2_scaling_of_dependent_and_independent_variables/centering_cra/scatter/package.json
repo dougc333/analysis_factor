@@ -18,10 +18,12 @@
     "@mui/x-charts": "^7.1.0",
     "@types/node": "^20.11.30",
     "ag-grid-react": "^31.2.0",
+    "axios": "^1.6.8",
     "csv-parse": "^5.5.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "sass": "^1.72.0",
+    "swr": "^2.2.5",
     "ts-node": "^10.9.2"
   },
   "devDependencies": {

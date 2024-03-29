@@ -1,40 +1,37 @@
 import Grid from "@mui/material/Grid"
 import { ChartContainer, ScatterPlot } from "@mui/x-charts"
 import {useState,useEffect} from 'react'
+import useSWR from 'swr'
+import axios from "axios"
+
+const ENDPOINT = './mcs2000.json'
 
 type MCSPCS = {
-  ID:number,
-  MCS2000: number,
+  ID: number,
+  MCS2000:number, 
   PCS2000:number
 }
 
-type S = {
-  id:string,
-  MCS2000: string,
-  PCS2000:string
-}
+
 
 const Centering = () => {
-  //const [graphData, setGraphData] = useState(Array<MCSPCS>)
-  const [moreData, setMoreData] = useState(Array<S>)
-  useEffect(()=>{
-    // fetch('./format.json').then((res)=>res.json()).then(
-    //   x=>setGraphData(x))
-    fetch('./mcs2000.json').then(res=>res.json()).then((x)=>(x.map(y=>{
-      console.log("y:",y)
-      console.log("moreData length:",moreData.length)
-      const foo= [...moreData,{id:y["ID"],MCS2000:y["MCS2000"], PCS2000:y["PCS2000"]}]
-      console.log("foo:",foo)
-      setMoreData(foo)
-      console.log("after moreData length:",moreData.length)
-      
-    })))
-  },[])
-  
-  
+  const [graphData, setGraphData] = useState(Array<MCSPCS>)
+  //const [scatterData, setScatterData] = useState(Array<ScatterData>)
 
-  //console.log("graphData:",graphData)
-  console.log("moreData:",moreData)
+  // function convertData(arg:Array<MCSPCS>): Array<ScatterData>{
+  //   console.log("convertData arg:",arg)
+  //   const foo = arg.map(data=>setScatterData([...scatterData,{id:parseInt(data["ID"])}])
+  //   )
+  //   console.log("convertData typeof foo:",(foo))
+  // }
+
+  useSWR(ENDPOINT, key=>{
+    console.log("key",key)
+    axios.get(key).then(r=>r.data).then(myData=>myData.map(data=> {return {id: parseInt(data["ID"]),x:parseInt(data["MCS2000"]),y:parseInt(data["PCS2000"])}})).then(myData=>setGraphData(myData))
+    
+  })
+  console.log("graphdata",graphData)
+  
   return (
     <Grid container>
       <Grid item sm={8}>
@@ -43,9 +40,8 @@ const Centering = () => {
           width={500}
           series={[
             {
-              type:"scatter",
-              data: [{x:1,y:13,id:1},{x:13,y:33,id:2} ,{x:29,y:10,id:3} ,{x:4,y:10,id:4} ,{x:14,y:19,id:5},
-                {x:10,y:4,id:6},{x:5,y:6,id:7},{x:11,y:7,id:8},{x:2,y:10,id:9},{x:22,y:5,id:10}]
+              type:"scatter", 
+              data:  graphData
             }
           ]}
         >
