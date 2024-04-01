@@ -1,9 +1,8 @@
 import Grid from "@mui/material/Grid"
-import { ChartContainer, LinePlot, ScatterPlot } from "@mui/x-charts"
-import {useState} from 'react'
+import { ChartContainer, LinePlot, ScatterPlot,ChartsXAxis } from "@mui/x-charts"
+import {useEffect, useState} from 'react'
 import useSWR from 'swr'
 import axios from "axios"
-import cloneDeep from 'clone-deep'
 
 const ENDPOINT = './nlsy.json'
 
@@ -14,9 +13,9 @@ type MCSPCS = {
 }
 
 type jsonType = {
-  ID:string,
-  MCS2000:string,
-  PCS2000:string
+  index:number,
+  MCS2000:number,
+  PCS2000:number
 }
 
 // type whichCenter = {
@@ -25,12 +24,19 @@ type jsonType = {
 // }
 const Centering = () => {
   const [graphData, setGraphData] = useState(Array<MCSPCS>)
-  
+  const [xData,setXData] = useState(Array<number>)
+
   useSWR(ENDPOINT, key=>{
     console.log("key",key)
-    axios.get(key).then(r=>r.data).then(myData =>myData.map( (data:jsonType) => {return {id: parseInt(data["ID"]),x:parseInt(data["MCS2000"]),y:parseInt(data["PCS2000"])}})).then(myData=>setGraphData(myData))
+    axios.get(key).then(r=>r.data).then(myData =>myData.map( (data:jsonType) => {return {id: data["index"],x:data["MCS2000"],y:data["PCS2000"]}})).then(myData=>setGraphData(myData))
   })
+  useEffect(()=>{
+    const arr = calcRegressionLine(4513.7705,.129,500)
+    console.log("arr:",arr)
+    setXData(arr)
+  },[])
 
+  
   console.log("graphdata",graphData)
 
   function avgX(){   
@@ -50,7 +56,14 @@ const Centering = () => {
     return sumY/graphData.length
   }
 
-
+  function calcRegressionLine(intercept:number, coeff:number,step_size:number){
+    console.log("calcRegressionLine")
+    const arr=[]
+    for (let i=0;i<14;i++){
+      arr.push(intercept+step_size*coeff*i)
+    }
+    return arr
+  }
   function CenterX(){
       console.log("xAvg:",avgX(), "yAvg:",avgY())
       const xAvg = avgX()
@@ -83,12 +96,12 @@ const Centering = () => {
             },
             {
               type:"line", 
-              data:  [1,2,3,4,5000,6000,7000,8000,9000,10000]
+              data: xData
             },
           ]}
           xAxis={[
             {
-              data: [0, 500, 1000, 1500, 2000,4000,6000,8000,10000,20000],
+              data: [0, 500, 1000, 1500, 2000,2500,3000,3500,4000,4500,5000,5500,6000,6500,7000],
               scaleType: 'linear',
               id: 'x-axis-id',
             },
@@ -97,10 +110,11 @@ const Centering = () => {
         >
         <ScatterPlot/>
         <LinePlot></LinePlot>
-
+        <ChartsXAxis label="MCS2000" position="bottom" axisId="x-axis-id" />
         </ChartContainer>
         <button onClick={CenterX}>CenterX</button>
         <button onClick={CenterY}>CenterY</button>
+        
       </Grid>
       <Grid item sm={8}>bar</Grid>
 
